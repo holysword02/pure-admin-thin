@@ -10,16 +10,16 @@ export type FindResult = {
 export const accountFind = (pageNum?: number, pageSize?: number) => {
   return http.request<FindResult>(
     "get",
-    "/api/user/find?pageNum=" + pageNum + "&pageSize=" + pageSize
+    "/system/user/find?pageNum=" + pageNum + "&pageSize=" + pageSize
   );
 };
 // 新增
 export const accountInsert = (data?: object) => {
-  return http.request("post", "/api/user/insert", { data });
+  return http.request("post", "/system/user/insert", { data });
 };
 // 删除
 export const accountDelete = id => {
-  return http.request("delete", "/api/user/delete/" + id, {
+  return http.request("delete", "/system/user/delete/" + id, {
     withCredentials: true
   });
 };
@@ -28,7 +28,7 @@ export const accountDelete = id => {
 export const accountUpdate = (data?: object) => {
   return http.request(
     "put",
-    "/api/user/update",
+    "/system/user/update",
     { data },
     {
       withCredentials: true

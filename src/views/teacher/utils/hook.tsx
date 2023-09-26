@@ -1,26 +1,21 @@
-import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import {
-  accountDelete,
-  accountFind,
-  accountInsert,
-  accountUpdate
-} from "@/api/account";
-import { ElMessageBox } from "element-plus";
-import { usePublicHooks } from "./hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { computed, Ref } from "vue";
+import {
+  teacherDelete,
+  teacherFind,
+  teacherInsert,
+  teacherUpdate
+} from "@/api/teacher";
 
 export function useAccount(tableRef: Ref) {
   const formRef = ref();
   const dataList = ref([]);
   const loading = ref(true);
-  const switchLoadMap = ref({});
-  const { switchStyle } = usePublicHooks();
   const selectedNum = ref(0);
   const form = reactive({
     username: "",
@@ -42,75 +37,38 @@ export function useAccount(tableRef: Ref) {
       reserveSelection: true // 数据刷新后保留选项
     },
     {
-      label: "用户账号",
-      prop: "username",
-      minWidth: 130
-    },
-    {
-      label: "用户姓名",
+      label: "教师姓名",
       prop: "name",
       minWidth: 130
     },
-    // {
-    //   label: "性别",
-    //   prop: "sex",
-    //   minWidth: 90,
-    //   cellRenderer: ({ row, props }) => (
-    //     <el-tag
-    //       size={props.size}
-    //       type={row.sex === 1 ? "danger" : ""}
-    //       effect="plain"
-    //     >
-    //       {row.sex === 1 ? "女" : "男"}
-    //     </el-tag>
-    //   )
-    // },
     {
-      label: "用户权限",
-      prop: "role",
-      minWidth: 130,
+      label: "教师性别",
+      prop: "sex",
+      minWidth: 90,
       cellRenderer: ({ row, props }) => (
         <el-tag
           size={props.size}
-          // type={row.role === 0 ? "danger" : ""}
-          // effect="plain"
+          type={row.sex === 0 ? "danger" : ""}
+          effect="plain"
         >
-          {row.role === 0 ? "管理员" : row.role === 1 ? "教师" : "学生"}
+          {row.sex === 0 ? "女" : "男"}
         </el-tag>
       )
     },
     {
-      label: "状态",
-      prop: "isActive",
-      minWidth: 90,
-      cellRenderer: scope => (
-        <el-switch
-          size={scope.props.size === "small" ? "small" : "default"}
-          loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.isActive}
-          active-value={1}
-          inactive-value={0}
-          active-text="已启用"
-          inactive-text="已停用"
-          inline-prompt
-          style={switchStyle.value}
-          onChange={() => onChange(scope as any)}
-        />
-      )
+      label: "教师年龄",
+      prop: "age",
+      minWidth: 130
     },
     {
-      label: "创建时间",
-      minWidth: 90,
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      label: "手机号",
+      prop: "phone",
+      minWidth: 130
     },
     {
-      label: "修改时间",
-      minWidth: 90,
-      prop: "updateTime",
-      formatter: ({ updateTime }) =>
-        dayjs(updateTime).format("YYYY-MM-DD HH:mm:ss")
+      label: "邮箱",
+      prop: "email",
+      minWidth: 130
     },
     {
       label: "操作",
@@ -128,58 +86,13 @@ export function useAccount(tableRef: Ref) {
       "dark:hover:!text-primary"
     ];
   });
-  // 重置的新密码
-  const rePwd = "e10adc3949ba59abbe56e057f20f883e";
-
-  function onChange({ row, index }) {
-    ElMessageBox.confirm(
-      `确认要<strong>${
-        row.isActive === 0 ? "停用" : "启用"
-      }</strong><strong style="color:var(--el-color-primary)">${
-        row.username
-      }</strong>用户吗?`,
-      "系统提示",
-      {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        dangerouslyUseHTMLString: true,
-        draggable: true
-      }
-    )
-      .then(() => {
-        accountUpdate(row);
-        switchLoadMap.value[index] = Object.assign(
-          {},
-          switchLoadMap.value[index],
-          {
-            loading: true
-          }
-        );
-        setTimeout(() => {
-          switchLoadMap.value[index] = Object.assign(
-            {},
-            switchLoadMap.value[index],
-            {
-              loading: false
-            }
-          );
-          message("已成功修改用户状态", {
-            type: "success"
-          });
-        }, 300);
-      })
-      .catch(() => {
-        row.isActive === 0 ? (row.isActive = 1) : (row.isActive = 0);
-      });
-  }
 
   function handleUpdate(row) {
     console.log(row);
   }
 
   function handleDelete(row) {
-    accountDelete(row.id).then(r => {
+    teacherDelete(row.id).then(r => {
       if (r) {
         message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
         onSearch();
@@ -219,7 +132,7 @@ export function useAccount(tableRef: Ref) {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
     for (const i in curSelected) {
-      accountDelete(curSelected[i].id).then(r => {
+      teacherDelete(curSelected[i].id).then(r => {
         if (!r) {
           message(`删除编号为 ${curSelected[i].id} 的数据失败`, {
             type: "success"
@@ -241,7 +154,7 @@ export function useAccount(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { records, total } = await accountFind(
+    const { records, total } = await teacherFind(
       pagination.currentPage,
       pagination.pageSize
     );
@@ -302,29 +215,18 @@ export function useAccount(tableRef: Ref) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              accountInsert(curData).then(r => {
+              teacherInsert(curData).then(r => {
                 chores(r);
               });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              accountUpdate(curData).then(r => {
+              teacherUpdate(curData).then(r => {
                 chores(r);
               });
             }
           }
         });
       }
-    });
-  }
-
-  /** 重置密码 */
-  function handleReset(row) {
-    row.password = rePwd;
-    accountUpdate(row).then(r => {
-      if (r)
-        message(`成功重置${row.username}的密码`, {
-          type: "success"
-        });
     });
   }
 
@@ -346,7 +248,6 @@ export function useAccount(tableRef: Ref) {
     openDialog,
     handleUpdate,
     handleDelete,
-    handleReset,
     handleSizeChange,
     onSelectionCancel,
     handleCurrentChange,
