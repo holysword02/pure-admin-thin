@@ -37,6 +37,11 @@ export function useAccount(tableRef: Ref) {
       reserveSelection: true // 数据刷新后保留选项
     },
     {
+      label: "教师账号",
+      prop: "username",
+      minWidth: 130
+    },
+    {
       label: "教师姓名",
       prop: "name",
       minWidth: 130

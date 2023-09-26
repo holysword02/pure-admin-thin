@@ -55,14 +55,6 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="姓名：" prop="name">
-        <el-input
-          v-model="form.name"
-          placeholder="请输入姓名"
-          clearable
-          class="!w-[160px]"
-        />
-      </el-form-item>
       <el-form-item label="权限：" prop="role">
         <el-select
           v-model="form.role"

@@ -24,7 +24,6 @@ export function useAccount(tableRef: Ref) {
   const selectedNum = ref(0);
   const form = reactive({
     username: "",
-    name: "",
     role: null,
     isActive: null
   });
@@ -46,25 +45,6 @@ export function useAccount(tableRef: Ref) {
       prop: "username",
       minWidth: 130
     },
-    {
-      label: "用户姓名",
-      prop: "name",
-      minWidth: 130
-    },
-    // {
-    //   label: "性别",
-    //   prop: "sex",
-    //   minWidth: 90,
-    //   cellRenderer: ({ row, props }) => (
-    //     <el-tag
-    //       size={props.size}
-    //       type={row.sex === 1 ? "danger" : ""}
-    //       effect="plain"
-    //     >
-    //       {row.sex === 1 ? "女" : "男"}
-    //     </el-tag>
-    //   )
-    // },
     {
       label: "用户权限",
       prop: "role",
@@ -267,8 +247,6 @@ export function useAccount(tableRef: Ref) {
           title,
           id: row?.id ?? null,
           username: row?.username ?? "",
-          name: row?.name ?? "",
-          // sex: row?.sex ?? "",
           role: row?.role ?? 2,
           isActive: row?.isActive ?? 1
         }

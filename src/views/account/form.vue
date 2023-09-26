@@ -8,7 +8,6 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     username: "",
-    name: "",
     role: 2,
     isActive: 1
   })
@@ -36,14 +35,6 @@ defineExpose({ getRef });
         v-model="newFormInline.username"
         clearable
         placeholder="请输入账号"
-      />
-    </el-form-item>
-
-    <el-form-item label="名称：" prop="name">
-      <el-input
-        v-model="newFormInline.name"
-        placeholder="请输入名称"
-        clearable
       />
     </el-form-item>
 
