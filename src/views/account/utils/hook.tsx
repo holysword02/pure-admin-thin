@@ -196,11 +196,16 @@ export function useAccount(tableRef: Ref) {
     onSearch();
   }
 
+  // 选择一页多少条数据
   function handleSizeChange(val: number) {
-    console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
   }
 
+  // 选择到第几页
   function handleCurrentChange(val: number) {
+    pagination.currentPage = val;
+    onSearch();
     console.log(`current page: ${val}`);
   }
 
@@ -231,14 +236,12 @@ export function useAccount(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { records, total, size, current } = await accountFind(
+    const { records, total } = await accountFind(
       pagination.currentPage,
       pagination.pageSize
     );
     dataList.value = records;
     pagination.total = total;
-    pagination.pageSize = size;
-    pagination.currentPage = current;
 
     setTimeout(() => {
       loading.value = false;
