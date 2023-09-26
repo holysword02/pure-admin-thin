@@ -35,3 +35,13 @@ export const accountUpdate = (data?: object) => {
     }
   );
 };
+
+// 教师
+export const teacherList = () => {
+  return http.request("get", "/system/user/list/teacher");
+};
+
+// 学生
+export const studentList = () => {
+  return http.request("get", "/system/user/list/student");
+};
