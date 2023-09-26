@@ -11,6 +11,7 @@ import {
   teacherInsert,
   teacherUpdate
 } from "@/api/teacher";
+import dayjs from "dayjs";
 
 export function useAccount(tableRef: Ref) {
   const formRef = ref();
@@ -20,8 +21,7 @@ export function useAccount(tableRef: Ref) {
   const form = reactive({
     username: "",
     name: "",
-    role: null,
-    isActive: null
+    sex: null
   });
   const pagination = reactive<PaginationProps>({
     total: 0,
@@ -61,9 +61,10 @@ export function useAccount(tableRef: Ref) {
       )
     },
     {
-      label: "教师年龄",
-      prop: "age",
-      minWidth: 130
+      label: "出生日期",
+      prop: "birthday",
+      minWidth: 90,
+      formatter: ({ birthday }) => dayjs(birthday).format("YYYY-MM-DD")
     },
     {
       label: "手机号",
@@ -99,7 +100,7 @@ export function useAccount(tableRef: Ref) {
   function handleDelete(row) {
     teacherDelete(row.id).then(r => {
       if (r) {
-        message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
+        message(`您删除了 ${row.name} 的数据`, { type: "success" });
         onSearch();
       }
     });
@@ -139,11 +140,11 @@ export function useAccount(tableRef: Ref) {
     for (const i in curSelected) {
       teacherDelete(curSelected[i].id).then(r => {
         if (!r) {
-          message(`删除编号为 ${curSelected[i].id} 的数据失败`, {
+          message(`删除 ${curSelected[i].name} 的数据失败`, {
             type: "success"
           });
         } else {
-          message(`您删除了用户编号为${curSelected[i].id}的这条数据`, {
+          message(`您删除了 ${curSelected[i].name} 的数据`, {
             type: "success"
           });
         }
@@ -184,11 +185,11 @@ export function useAccount(tableRef: Ref) {
         formInline: {
           title,
           id: row?.id ?? null,
-          username: row?.username ?? "",
+          username: row?.username ?? null,
           name: row?.name ?? "",
-          // sex: row?.sex ?? "",
-          role: row?.role ?? 2,
-          isActive: row?.isActive ?? 1
+          sex: row?.sex ?? null,
+          birthday: row?.birthday ?? null,
+          phone: row?.phone ?? ""
         }
       },
       width: "46%",

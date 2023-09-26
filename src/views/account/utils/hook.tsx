@@ -161,7 +161,7 @@ export function useAccount(tableRef: Ref) {
   function handleDelete(row) {
     accountDelete(row.id).then(r => {
       if (r) {
-        message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
+        message(`您删除了用户编号为 ${row.id} 的这条数据`, { type: "success" });
         onSearch();
       }
     });
@@ -205,7 +205,7 @@ export function useAccount(tableRef: Ref) {
             type: "success"
           });
         } else {
-          message(`您删除了用户编号为${curSelected[i].id}的这条数据`, {
+          message(`您删除了用户编号为 ${curSelected[i].id} 的这条数据`, {
             type: "success"
           });
         }

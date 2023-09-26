@@ -6,6 +6,7 @@ export type FindResult = {
   size: number;
   current: number;
 };
+
 // 分页查询
 export const accountFind = (pageNum?: number, pageSize?: number) => {
   return http.request<FindResult>(

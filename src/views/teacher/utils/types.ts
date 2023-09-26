@@ -1,16 +1,18 @@
 interface FormItemProps {
-  /** 角色编号 */
+  /** 教师编号 */
   id: string;
-  /** 账号 */
+  /** 教师账号 */
   username: string;
-  /** 角色名称 */
+  /** 教师姓名 */
   name: string;
-  // /** 性别 */
-  // sex: string;
-  /** 权限 */
-  role: number;
-  /** 状态 */
-  isActive: number;
+  /** 教师性别 */
+  sex: number;
+  /** 出生日期 */
+  birthday: Date;
+  /** 手机号 */
+  phone: string;
+  /** 邮箱 */
+  email: string;
 }
 
 interface FormProps {

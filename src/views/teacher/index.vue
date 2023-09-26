@@ -4,8 +4,6 @@ import { useAccount } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 
-import Password from "@iconify-icons/ri/lock-password-line";
-import More from "@iconify-icons/ep/more-filled";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
@@ -25,14 +23,11 @@ const {
   dataList,
   selectedNum,
   pagination,
-  buttonClass,
   onSearch,
   resetForm,
   onbatchDel,
   openDialog,
-  handleUpdate,
   handleDelete,
-  handleReset,
   handleSizeChange,
   onSelectionCancel,
   handleCurrentChange,
@@ -47,7 +42,7 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="用户账号：" prop="username">
+      <el-form-item label="教师账号：" prop="username">
         <el-input
           v-model="form.username"
           placeholder="请输入用户账号"
@@ -55,7 +50,7 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="姓名：" prop="name">
+      <el-form-item label="教师姓名：" prop="name">
         <el-input
           v-model="form.name"
           placeholder="请输入姓名"
@@ -63,27 +58,15 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="权限：" prop="role">
+      <el-form-item label="教师性别：" prop="sex">
         <el-select
-          v-model="form.role"
+          v-model="form.sex"
           placeholder="请选择"
           clearable
           class="!w-[160px]"
         >
-          <el-option label="管理员" :value="0" />
-          <el-option label="教师" :value="1" />
-          <el-option label="学生" :value="2" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="状态：" prop="isActive">
-        <el-select
-          v-model="form.isActive"
-          placeholder="请选择"
-          clearable
-          class="!w-[160px]"
-        >
-          <el-option label="已开启" :value="1" />
-          <el-option label="已关闭" :value="0" />
+          <el-option label="男" :value="1" />
+          <el-option label="女" :value="0" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -181,32 +164,6 @@ const {
                 </el-button>
               </template>
             </el-popconfirm>
-            <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-                @click="handleUpdate(row)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Password)"
-                      @click="handleReset(row)"
-                    >
-                      重置密码
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
           </template>
         </pure-table>
       </template>

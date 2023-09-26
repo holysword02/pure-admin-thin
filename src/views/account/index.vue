@@ -55,7 +55,7 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="权限：" prop="role">
+      <el-form-item label="用户权限：" prop="role">
         <el-select
           v-model="form.role"
           placeholder="请选择"
@@ -67,7 +67,7 @@ const {
           <el-option label="学生" :value="2" />
         </el-select>
       </el-form-item>
-      <el-form-item label="状态：" prop="isActive">
+      <el-form-item label="用户状态：" prop="isActive">
         <el-select
           v-model="form.isActive"
           placeholder="请选择"
