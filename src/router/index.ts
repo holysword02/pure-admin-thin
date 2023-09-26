@@ -2,7 +2,7 @@
 import { getConfig } from "@/config";
 import NProgress from "@/utils/progress";
 import { transformI18n } from "@/plugins/i18n";
-import { sessionKey, type DataInfo } from "@/utils/auth";
+import { sessionKey, type DataInfo, TokenKey, removeToken } from "@/utils/auth";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import {
@@ -26,6 +26,7 @@ import { buildHierarchyTree } from "@/utils/tree";
 import { isUrl, openLink, storageSession, isAllEmpty } from "@pureadmin/utils";
 
 import remainingRouter from "./modules/remaining";
+import Cookies from "js-cookie";
 
 /** 自动导入全部静态路由，无需再手动引入！匹配 src/router/modules 目录（任何嵌套级别）中具有 .ts 扩展名的所有文件，除了 remaining.ts 文件
  * 如何匹配所有文件请看：https://github.com/mrmlnc/fast-glob#basic-syntax
@@ -111,6 +112,8 @@ router.beforeEach((to: ToRouteType, _from, next) => {
     }
   }
   const userInfo = storageSession().getItem<DataInfo<number>>(sessionKey);
+  const cookieInfo = Cookies.get(TokenKey);
+
   NProgress.start();
   const externalLink = isUrl(to?.name as string);
   if (!externalLink) {
@@ -126,6 +129,11 @@ router.beforeEach((to: ToRouteType, _from, next) => {
   /** 如果已经登录并存在登录信息后不能跳转到路由白名单，而是继续保持在当前页面 */
   function toCorrectRoute() {
     whiteList.includes(to.fullPath) ? next(_from.fullPath) : next();
+  }
+
+  if (cookieInfo == null && to.path !== "/login") {
+    removeToken();
+    next({ path: "/login" });
   }
 
   if (userInfo) {
