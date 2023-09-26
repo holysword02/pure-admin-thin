@@ -10,7 +10,7 @@ import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
 
 import Table from "@pureadmin/table";
-// import PureDescriptions from "@pureadmin/descriptions";
+import PureDescriptions from "@pureadmin/descriptions";
 
 // 引入重置样式
 import "./style/reset.scss";
@@ -58,7 +58,7 @@ getServerConfig(app).then(async config => {
     .use(useI18n)
     .use(ElementPlus)
     .use(useEcharts)
-    .use(Table);
-  // .use(PureDescriptions);
+    .use(Table)
+    .use(PureDescriptions);
   app.mount("#app");
 });

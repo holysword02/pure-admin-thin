@@ -10,7 +10,8 @@ export default {
       name: "Teacher",
       component: () => import("@/views/teacher/index.vue"),
       meta: {
-        title: "教师信息管理"
+        title: "教师信息管理",
+        roles: ["0"]
       }
     }
   ]

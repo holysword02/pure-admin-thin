@@ -10,7 +10,8 @@ export default {
       name: "Account",
       component: () => import("@/views/account/index.vue"),
       meta: {
-        title: "账号管理"
+        title: "账号管理",
+        roles: ["0"]
       }
     }
   ]
