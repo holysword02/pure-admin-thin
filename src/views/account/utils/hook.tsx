@@ -1,25 +1,22 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { accountFind } from "@/api/account";
 import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessageBox,
-  ElProgress
-} from "element-plus";
+  accountDelete,
+  accountFind,
+  accountInsert,
+  accountUpdate
+} from "@/api/account";
+import { ElMessageBox } from "element-plus";
 import { usePublicHooks } from "./hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { computed, Ref } from "vue";
-import { getKeyList } from "@pureadmin/utils";
 
 export function useAccount(tableRef: Ref) {
   const formRef = ref();
-  const ruleFormRef = ref();
   const dataList = ref([]);
   const loading = ref(true);
   const switchLoadMap = ref({});
@@ -132,18 +129,7 @@ export function useAccount(tableRef: Ref) {
     ];
   });
   // 重置的新密码
-  const pwdForm = reactive({
-    newPwd: ""
-  });
-  const pwdProgress = [
-    { color: "#e74242", text: "非常弱" },
-    { color: "#EFBD47", text: "弱" },
-    { color: "#ffa500", text: "一般" },
-    { color: "#1bbf1b", text: "强" },
-    { color: "#008000", text: "非常强" }
-  ];
-  // 当前密码强度（0-4）
-  const curScore = ref();
+  const rePwd = "e10adc3949ba59abbe56e057f20f883e";
 
   function onChange({ row, index }) {
     ElMessageBox.confirm(
@@ -192,8 +178,12 @@ export function useAccount(tableRef: Ref) {
   }
 
   function handleDelete(row) {
-    message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
-    onSearch();
+    accountDelete(row.id).then(r => {
+      if (r) {
+        message(`您删除了用户编号为${row.id}的这条数据`, { type: "success" });
+        onSearch();
+      }
+    });
   }
 
   // 选择一页多少条数据
@@ -227,11 +217,25 @@ export function useAccount(tableRef: Ref) {
   function onbatchDel() {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
+    for (const i in curSelected) {
+      accountDelete(curSelected[i].id).then(r => {
+        if (!r) {
+          message(`删除编号为 ${curSelected[i].id} 的数据失败`, {
+            type: "success"
+          });
+        } else {
+          message(`您删除了用户编号为${curSelected[i].id}的这条数据`, {
+            type: "success"
+          });
+        }
+      });
+    }
     // 接下来根据实际业务，通过选中行的某项数据，比如下面的id，调用接口进行批量删除
-    message(`已删除用户编号为 ${getKeyList(curSelected, "id")} 的数据`, {
-      type: "success"
-    });
+    // message(`已删除用户编号为 ${getKeyList(curSelected, "id")} 的数据`, {
+    //   type: "success"
+    // });
     tableRef.value.getTableRef().clearSelection();
+    onSearch();
   }
 
   async function onSearch() {
@@ -260,6 +264,7 @@ export function useAccount(tableRef: Ref) {
       props: {
         formInline: {
           title,
+          id: row?.id ?? null,
           username: row?.username ?? "",
           name: row?.name ?? "",
           // sex: row?.sex ?? "",
@@ -276,10 +281,16 @@ export function useAccount(tableRef: Ref) {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
 
-        function chores() {
-          message(`您${title}了用户名称为${curData.username}的这条数据`, {
-            type: "success"
-          });
+        function chores(r) {
+          if (r) {
+            message(`您${title}了用户名称为${curData.username}的这条数据`, {
+              type: "success"
+            });
+          } else {
+            message(`您${title}数据失败`, {
+              type: "success"
+            });
+          }
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
@@ -290,10 +301,14 @@ export function useAccount(tableRef: Ref) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              chores();
+              accountInsert(curData).then(r => {
+                chores(r);
+              });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              chores();
+              accountUpdate(curData).then(r => {
+                chores(r);
+              });
             }
           }
         });
@@ -303,74 +318,12 @@ export function useAccount(tableRef: Ref) {
 
   /** 重置密码 */
   function handleReset(row) {
-    addDialog({
-      title: `重置 ${row.username} 用户的密码`,
-      width: "30%",
-      draggable: true,
-      closeOnClickModal: false,
-      contentRenderer: () => (
-        <>
-          <ElForm ref={ruleFormRef} model={pwdForm}>
-            <ElFormItem
-              prop="newPwd"
-              rules={[
-                {
-                  required: true,
-                  message: "请输入新密码",
-                  trigger: "blur"
-                }
-              ]}
-            >
-              <ElInput
-                clearable
-                show-password
-                type="password"
-                v-model={pwdForm.newPwd}
-                placeholder="请输入新密码"
-              />
-            </ElFormItem>
-          </ElForm>
-          <div class="mt-4 flex">
-            {pwdProgress.map(({ color, text }, idx) => (
-              <div
-                class="w-[19vw]"
-                style={{ marginLeft: idx !== 0 ? "4px" : 0 }}
-              >
-                <ElProgress
-                  striped
-                  striped-flow
-                  duration={curScore.value === idx ? 6 : 0}
-                  percentage={curScore.value >= idx ? 100 : 0}
-                  color={color}
-                  stroke-width={10}
-                  show-text={false}
-                />
-                <p
-                  class="text-center"
-                  style={{ color: curScore.value === idx ? color : "" }}
-                >
-                  {text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </>
-      ),
-      closeCallBack: () => (pwdForm.newPwd = ""),
-      beforeSure: done => {
-        ruleFormRef.value.validate(valid => {
-          if (valid) {
-            // 表单规则校验通过
-            message(`已成功重置 ${row.username} 用户的密码`, {
-              type: "success"
-            });
-            console.log(pwdForm.newPwd);
-            // 根据实际业务使用pwdForm.newPwd和row里的某些字段去调用重置用户密码接口即可
-            done(); // 关闭弹框
-            onSearch(); // 刷新表格数据
-          }
+    row.password = rePwd;
+    accountUpdate(row).then(r => {
+      if (r)
+        message(`成功重置${row.username}的密码`, {
+          type: "success"
         });
-      }
     });
   }
 

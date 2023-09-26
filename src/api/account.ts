@@ -14,19 +14,24 @@ export const accountFind = (pageNum?: number, pageSize?: number) => {
   );
 };
 // 新增
-export const accountInsert = () => {
-  return http.request("post", "/api/user/insert");
+export const accountInsert = (data?: object) => {
+  return http.request("post", "/api/user/insert", { data });
 };
 // 删除
 export const accountDelete = id => {
-  http.request("delete", "/api/user/delete/" + id, null, {
+  return http.request("delete", "/api/user/delete/" + id, {
     withCredentials: true
   });
 };
 
 // 修改
 export const accountUpdate = (data?: object) => {
-  return http.request("put", "/api/user/update", data, {
-    withCredentials: true
-  });
+  return http.request(
+    "put",
+    "/api/user/update",
+    { data },
+    {
+      withCredentials: true
+    }
+  );
 };
