@@ -11,7 +11,7 @@ import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Teacher"
+  name: "Student"
 });
 
 const formRef = ref();
@@ -42,7 +42,7 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="教师账号：" prop="username">
+      <el-form-item label="学生账号：" prop="username">
         <el-input
           v-model="form.username"
           placeholder="请输入用户账号"
@@ -50,7 +50,7 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="教师姓名：" prop="name">
+      <el-form-item label="学生姓名：" prop="name">
         <el-input
           v-model="form.name"
           placeholder="请输入姓名"
@@ -58,7 +58,7 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="教师性别：" prop="sex">
+      <el-form-item label="学生性别：" prop="sex">
         <el-select
           v-model="form.sex"
           placeholder="请选择"
@@ -84,14 +84,14 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="教师信息管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="学生信息管理" :columns="columns" @refresh="onSearch">
       <template #buttons>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          新增教师信息
+          新增学生信息
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
