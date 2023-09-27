@@ -1,11 +1,5 @@
 import { http } from "@/utils/http";
-
-export type FindResult = {
-  records: Array<any>;
-  total: number;
-  size: number;
-  current: number;
-};
+import { FindResult } from "@/api/types";
 
 // 分页查询
 export const accountFind = (pageNum?: number, pageSize?: number) => {
