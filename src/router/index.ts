@@ -2,7 +2,7 @@
 import { getConfig } from "@/config";
 import NProgress from "@/utils/progress";
 import { transformI18n } from "@/plugins/i18n";
-import { sessionKey, type DataInfo, TokenKey, removeToken } from "@/utils/auth";
+import { sessionKey, type DataInfo, TokenKey } from "@/utils/auth";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import {
@@ -130,13 +130,7 @@ router.beforeEach((to: ToRouteType, _from, next) => {
   function toCorrectRoute() {
     whiteList.includes(to.fullPath) ? next(_from.fullPath) : next();
   }
-
-  if (cookieInfo == null && to.path !== "/login") {
-    removeToken();
-    next({ path: "/login" });
-  }
-
-  if (userInfo) {
+  if (userInfo && cookieInfo) {
     // 无权限跳转403页面
     if (to.meta?.roles && !isOneOfArray(to.meta?.roles, userInfo?.roles)) {
       next({ path: "/error/403" });
