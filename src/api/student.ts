@@ -1,9 +1,8 @@
 import { http } from "@/utils/http";
-import { FindResult } from "@/api/types";
 
 // 分页查询
 export const studentFind = (pageNum?: number, pageSize?: number) => {
-  return http.request<FindResult>(
+  return http.request<Array<any>>(
     "get",
     "/students/student/find?pageNum=" + pageNum + "&pageSize=" + pageSize
   );
