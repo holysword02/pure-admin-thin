@@ -160,9 +160,12 @@ export function useAccount(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const list = await studentFind(pagination.currentPage, pagination.pageSize);
-    dataList.value = list;
-    pagination.total = list.length;
+    const { records, total } = await studentFind(
+      pagination.currentPage,
+      pagination.pageSize
+    );
+    dataList.value = records;
+    pagination.total = total;
 
     setTimeout(() => {
       loading.value = false;
