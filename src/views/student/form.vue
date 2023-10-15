@@ -41,19 +41,7 @@ onMounted(async () => {
     label-width="92px"
   >
     <el-form-item label="学生账号：" prop="username">
-      <el-select
-        v-model="newFormInline.username"
-        clearable
-        filterable
-        placeholder="请选择账号"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.username"
-          :label="item.username"
-          :value="item.username"
-        />
-      </el-select>
+      <el-input v-model="newFormInline.username" />
     </el-form-item>
 
     <el-form-item label="学生姓名：" prop="name">

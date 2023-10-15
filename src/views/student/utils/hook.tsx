@@ -221,9 +221,13 @@ export function useAccount(tableRef: Ref) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              studentInsert(curData).then(r => {
-                chores(r);
-              });
+              studentInsert(curData)
+                .then(r => {
+                  chores(r);
+                })
+                .catch(e => {
+                  chores(e);
+                });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
               studentUpdate(curData).then(r => {

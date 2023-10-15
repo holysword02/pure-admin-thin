@@ -11,7 +11,7 @@ export const studentFind = (pageNum?: number, pageSize?: number) => {
 
 // 新增
 export const studentInsert = (data?: object) => {
-  return http.request("post", "/students/student/add", { data });
+  return http.request("post", "/students/student/addStudentAndUser", { data });
 };
 
 // 删除
