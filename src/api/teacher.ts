@@ -11,7 +11,7 @@ export const teacherFind = (pageNum?: number, pageSize?: number) => {
 
 // 新增
 export const teacherInsert = (data?: object) => {
-  return http.request("post", "/teachers/teacher/add", { data });
+  return http.request("post", "/teachers/teacher/addTeacherAndUser", { data });
 };
 
 // 删除

@@ -13,7 +13,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     sex: null,
     birthday: null,
     phone: "",
-    email: ""
+    email: "",
+    classId: nulla
   })
 });
 
@@ -31,7 +32,43 @@ onMounted(async () => {
     options.value = r;
   });
 });
+
+//远程查询
+const states = [
+  { classId: '1', className: 'Mathematics' },
+  { classId: '2', className: 'Physics' },
+  { classId: '3', className: 'Chemistry' },
+  { classId: '4', className: 'Biology' },
+  // 添加更多班级信息...
+];
+const list1 = states.map((item): ListItem => {
+  return { value: item.classId, label: `${item.classId}:${item.className}` }
+})
+
+interface ListItem {
+  value: string
+  label: string
+}
+
+const value1 = ref([])
+const options1 = ref<ListItem[]>([])
+const loading1 = ref(false)
+
+const remoteMethod = (query: string) => {
+  if (query !== '') {
+    loading1.value = true
+    setTimeout(() => {
+      loading1.value = false
+      options1.value = list1.filter((item) => {
+        return item.label.toLowerCase().includes(query.toLowerCase())
+      })
+    }, 200)
+  } else {
+    options1.value = []
+  }
+}
 </script>
+
 
 <template>
   <el-form
@@ -41,7 +78,11 @@ onMounted(async () => {
     label-width="92px"
   >
     <el-form-item label="学生账号：" prop="username">
-      <el-input v-model="newFormInline.username" />
+      <el-input
+        v-model="newFormInline.username"
+        placeholder="请输入账号"
+        clearable
+      />
     </el-form-item>
 
     <el-form-item label="学生姓名：" prop="name">
@@ -58,6 +99,22 @@ onMounted(async () => {
         <el-option label="女" :value="0" />
       </el-select>
     </el-form-item>
+
+    <el-form-item label="班级：" prop="classId">
+      <el-select-v2
+          v-model="newFormInline.classId"
+          style="width: 240px"
+          filterable
+          remote
+          :remote-method="remoteMethod"
+          clearable
+          :options="options1"
+          :loading="loading1"
+          placeholder="Please enter a keyword"
+      />
+    </el-form-item>
+
+
 
     <el-form-item label="出生日期：" prop="birthday">
       <el-date-picker

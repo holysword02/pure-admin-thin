@@ -13,6 +13,8 @@ interface FormItemProps {
   phone: string;
   /** 邮箱 */
   email: string;
+  /** 班级编号 */
+  classId: string;
 }
 
 interface FormProps {

@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { addDialog } from "@/components/ReDialog";
@@ -7,11 +6,12 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { computed, Ref } from "vue";
 import {
-  studentDelete,
-  studentFind,
-  studentInsert,
-  studentUpdate
-} from "@/api/student";
+  classesDelete,
+  classesFind,
+  classesInsert,
+  classesUpdate
+} from "@/api/classes";
+import dayjs from "dayjs";
 
 export function useAccount(tableRef: Ref) {
   const formRef = ref();
@@ -37,48 +37,13 @@ export function useAccount(tableRef: Ref) {
       reserveSelection: true // 数据刷新后保留选项
     },
     {
-      label: "学生账号",
-      prop: "username",
+      label: "班级id",
+      prop: "id",
       minWidth: 130
     },
     {
-      label: "学生姓名",
+      label: "班级名",
       prop: "name",
-      minWidth: 130
-    },
-    {
-      label: "班级",
-      prop: "className",
-      minWidth: 130
-    },
-    {
-      label: "学生性别",
-      prop: "sex",
-      minWidth: 90,
-      cellRenderer: ({ row, props }) => (
-        <el-tag
-          size={props.size}
-          type={row.sex === 0 ? "danger" : ""}
-          effect="plain"
-        >
-          {row.sex === 0 ? "女" : "男"}
-        </el-tag>
-      )
-    },
-    {
-      label: "出生日期",
-      prop: "birthday",
-      minWidth: 90,
-      formatter: ({ birthday }) => dayjs(birthday).format("YYYY-MM-DD")
-    },
-    {
-      label: "手机号",
-      prop: "phone",
-      minWidth: 130
-    },
-    {
-      label: "邮箱",
-      prop: "email",
       minWidth: 130
     },
     {
@@ -103,7 +68,7 @@ export function useAccount(tableRef: Ref) {
   }
 
   function handleDelete(row) {
-    studentDelete(row.id).then(r => {
+    classesDelete(row.id).then(r => {
       if (r) {
         message(`您删除了 ${row.name} 的数据`, { type: "success" });
         onSearch();
@@ -143,7 +108,7 @@ export function useAccount(tableRef: Ref) {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
     for (const i in curSelected) {
-      studentDelete(curSelected[i].id).then(r => {
+      classesDelete(curSelected[i].id).then(r => {
         if (!r) {
           message(`删除 ${curSelected[i].name} 的数据失败`, {
             type: "success"
@@ -165,7 +130,7 @@ export function useAccount(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { records, total } = await studentFind(
+    const { records, total } = await classesFind(
       pagination.currentPage,
       pagination.pageSize
     );
@@ -183,9 +148,6 @@ export function useAccount(tableRef: Ref) {
     onSearch();
   };
 
-
-
-
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
       title: `${title}用户`,
@@ -193,11 +155,7 @@ export function useAccount(tableRef: Ref) {
         formInline: {
           title,
           id: row?.id ?? null,
-          username: row?.username ?? null,
-          name: row?.name ?? "",
-          sex: row?.sex ?? null,
-          birthday: row?.birthday ?? null,
-          phone: row?.phone ?? ""
+          name: row?.name ?? null
         }
       },
       width: "46%",
@@ -211,7 +169,7 @@ export function useAccount(tableRef: Ref) {
 
         function chores(r) {
           if (r) {
-            message(`您${title}了用户名称为${curData.username}的这条数据`, {
+            message(`您${title}了用户名称为${curData.id}的这条数据`, {
               type: "success"
             });
           } else {
@@ -229,16 +187,12 @@ export function useAccount(tableRef: Ref) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              studentInsert(curData)
-                .then(r => {
-                  chores(r);
-                })
-                .catch(e => {
-                  chores(e);
-                });
+              classesInsert(curData).then(r => {
+                chores(r);
+              });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              studentUpdate(curData).then(r => {
+              classesUpdate(curData).then(r => {
                 chores(r);
               });
             }
