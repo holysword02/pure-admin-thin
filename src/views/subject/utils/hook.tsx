@@ -175,6 +175,8 @@ export function useAccount(tableRef: Ref) {
     pagination.total = total;
 
     classList.value = await classesFindAll();
+    subjectnameList.value = await classesFindAll();
+    teacherList.value = await classesFindAll();
 
     setTimeout(() => {
       loading.value = false;

@@ -19,6 +19,7 @@ interface FormItemProps {
 
 interface FormProps {
   formInline: FormItemProps;
+  classList: Array<any>;
 }
 
 export type { FormItemProps, FormProps };

@@ -9,6 +9,11 @@ export const classesFind = (pageNum?: number, pageSize?: number) => {
   );
 };
 
+//查询全部
+export const classesFindAll = () => {
+  return http.request("get", "/classes/class/findAll");
+};
+
 // 新增
 export const classesInsert = (data?: object) => {
   return http.request("post", "/classes/class/addTeacherAndUser", { data });

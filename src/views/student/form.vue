@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import { studentList } from "@/api/account";
 
 //TODO 表单信息
 const props = withDefaults(defineProps<FormProps>(), {
@@ -15,34 +14,23 @@ const props = withDefaults(defineProps<FormProps>(), {
     phone: "",
     email: "",
     classId: null
-  })
+  }),
+  classList: null
 });
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
-const options = ref();
+const states = ref(props.classList);
 
 function getRef() {
   return ruleFormRef.value;
 }
 
 defineExpose({ getRef });
-onMounted(async () => {
-  studentList().then(r => {
-    options.value = r;
-  });
-});
 
 //远程查询
-const states = [
-  { classId: "1", className: "Mathematics" },
-  { classId: "2", className: "Physics" },
-  { classId: "3", className: "Chemistry" },
-  { classId: "4", className: "Biology" }
-  // 添加更多班级信息...
-];
-const list1 = states.map((item): ListItem => {
-  return { value: item.classId, label: `${item.classId}:${item.className}` };
+const list1 = states.value.map((item): ListItem => {
+  return { value: item.id, label: `${item.id}:${item.name}` };
 });
 
 interface ListItem {
@@ -50,7 +38,6 @@ interface ListItem {
   label: string;
 }
 
-const value1 = ref([]);
 const options1 = ref<ListItem[]>([]);
 const loading1 = ref(false);
 
@@ -99,17 +86,17 @@ const remoteMethod = (query: string) => {
       </el-select>
     </el-form-item>
 
-    <el-form-item label="班级：" prop="classId">
+    <el-form-item label="班级：" prop="classId" style="font-weight: 700">
       <el-select-v2
         v-model="newFormInline.classId"
-        style="width: 240px"
+        style="width: 240px; font-weight: 400"
         filterable
         remote
         :remote-method="remoteMethod"
         clearable
         :options="options1"
         :loading="loading1"
-        placeholder="Please enter a keyword"
+        placeholder="请输入班级"
       />
     </el-form-item>
 
