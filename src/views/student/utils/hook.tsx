@@ -98,6 +98,45 @@ export function useAccount(tableRef: Ref) {
     ];
   });
 
+  //远程查询class
+  function remoteMethod1 = async (query: string) => {
+    if (query !== "") {
+      loading1.value = true;
+      try {
+        const response = await axios.get(`YOUR_API_URL?query=${query}`);
+        loading1.value = false;
+        options1.value = response.data.map(item => {
+          return { value: item.classId, label: item.className };
+        });
+      } catch (error) {
+        console.error(error);
+        loading1.value = false;
+        options1.value = [];
+      }
+    } else {
+      options1.value = [];
+    }
+  };
+
+  async function remoteMethod(query: string) {
+    if (query !== "") {
+      loading1.value = true;
+      try {
+        const response = await get(`YOUR_API_URL?query=${query}`);
+        loading1.value = false;
+        options1.value = response.data.map(item => {
+          return { value: item.classId, label: item.className };
+        });
+      } catch (error) {
+        console.error(error);
+        loading1.value = false;
+        options1.value = [];
+      }
+    } else {
+      options1.value = [];
+    }
+  };
+
   function handleUpdate(row) {
     console.log(row);
   }
@@ -182,9 +221,6 @@ export function useAccount(tableRef: Ref) {
     formEl.resetFields();
     onSearch();
   };
-
-
-
 
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
