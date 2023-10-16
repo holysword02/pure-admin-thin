@@ -79,6 +79,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: "http://localhost:6063",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/subjects/, "")
+        },
+        "/dicts": {
+          // 这里填写后端地址
+          target: "http://localhost:6065",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/dicts/, "")
         }
       }
     },

@@ -9,6 +9,11 @@ export const teacherFind = (pageNum?: number, pageSize?: number) => {
   );
 };
 
+//查询全部
+export const teacherFindAll = () => {
+  return http.request("get", "/teachers/teacher/findAll");
+};
+
 // 新增
 export const teacherInsert = (data?: object) => {
   return http.request("post", "/teachers/teacher/addTeacherAndUser", { data });

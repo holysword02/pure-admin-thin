@@ -8,8 +8,11 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     subjectNameId: null,
+    subjectName: "",
     teacherId: null,
-    classId: null
+    teacherName: "",
+    classId: null,
+    className: ""
   }),
   classList: null,
   teacherList: null,

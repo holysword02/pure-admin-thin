@@ -12,6 +12,8 @@ import {
   subjectUpdate
 } from "@/api/subject";
 import { classesFindAll } from "@/api/classes";
+import { teacherFindAll } from "@/api/teacher";
+import { dictFindAll } from "@/api/dict";
 
 export function useAccount(tableRef: Ref) {
   const teacherList = ref();
@@ -151,8 +153,8 @@ export function useAccount(tableRef: Ref) {
     pagination.total = total;
 
     classList.value = await classesFindAll();
-    subjectnameList.value = await classesFindAll();
-    teacherList.value = await classesFindAll();
+    subjectnameList.value = await dictFindAll();
+    teacherList.value = await teacherFindAll();
 
     setTimeout(() => {
       loading.value = false;
