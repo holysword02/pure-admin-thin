@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { addDialog } from "@/components/ReDialog";
@@ -7,14 +6,16 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { computed, Ref } from "vue";
 import {
-  studentDelete,
-  studentFind,
-  studentInsert,
-  studentUpdate
-} from "@/api/student";
+  subjectDelete,
+  subjectFind,
+  subjectInsert,
+  subjectUpdate
+} from "@/api/subject";
 import { classesFindAll } from "@/api/classes";
 
 export function useAccount(tableRef: Ref) {
+  const teacherList = ref();
+  const subjectnameList = ref();
   const classList = ref();
   const formRef = ref();
   const dataList = ref([]);
@@ -39,48 +40,23 @@ export function useAccount(tableRef: Ref) {
       reserveSelection: true // 数据刷新后保留选项
     },
     {
-      label: "学生账号",
-      prop: "username",
+      label: "学科id",
+      prop: "id",
       minWidth: 130
     },
     {
-      label: "学生姓名",
-      prop: "name",
+      label: "学科名",
+      prop: "subjectName",
       minWidth: 130
     },
     {
-      label: "班级",
+      label: "老师名",
+      prop: "teacherName",
+      minWidth: 130
+    },
+    {
+      label: "班级名",
       prop: "className",
-      minWidth: 130
-    },
-    {
-      label: "学生性别",
-      prop: "sex",
-      minWidth: 90,
-      cellRenderer: ({ row, props }) => (
-        <el-tag
-          size={props.size}
-          type={row.sex === 0 ? "danger" : ""}
-          effect="plain"
-        >
-          {row.sex === 0 ? "女" : "男"}
-        </el-tag>
-      )
-    },
-    {
-      label: "出生日期",
-      prop: "birthday",
-      minWidth: 90,
-      formatter: ({ birthday }) => dayjs(birthday).format("YYYY-MM-DD")
-    },
-    {
-      label: "手机号",
-      prop: "phone",
-      minWidth: 130
-    },
-    {
-      label: "邮箱",
-      prop: "email",
       minWidth: 130
     },
     {
@@ -105,7 +81,7 @@ export function useAccount(tableRef: Ref) {
   }
 
   function handleDelete(row) {
-    studentDelete(row.id).then(r => {
+    subjectDelete(row.id).then(r => {
       if (r) {
         message(`您删除了 ${row.name} 的数据`, { type: "success" });
         onSearch();
@@ -145,7 +121,7 @@ export function useAccount(tableRef: Ref) {
     // 返回当前选中的行
     const curSelected = tableRef.value.getTableRef().getSelectionRows();
     for (const i in curSelected) {
-      studentDelete(curSelected[i].id).then(r => {
+      subjectDelete(curSelected[i].id).then(r => {
         if (!r) {
           message(`删除 ${curSelected[i].name} 的数据失败`, {
             type: "success"
@@ -167,7 +143,7 @@ export function useAccount(tableRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { records, total } = await studentFind(
+    const { records, total } = await subjectFind(
       pagination.currentPage,
       pagination.pageSize
     );
@@ -196,11 +172,12 @@ export function useAccount(tableRef: Ref) {
         formInline: {
           title,
           id: row?.id ?? null,
-          username: row?.username ?? null,
-          name: row?.name ?? "",
-          sex: row?.sex ?? null,
-          birthday: row?.birthday ?? null,
-          phone: row?.phone ?? ""
+          subjectNameId: row?.subjectNameId ?? null,
+          subjectName: row?.subjectName ?? null,
+          teacherId: row?.teacherId ?? null,
+          teacherName: row?.teacherName ?? null,
+          classId: row?.classId ?? null,
+          className: row?.className ?? null
         },
         classList: classList?.value ?? null
       },
@@ -215,7 +192,7 @@ export function useAccount(tableRef: Ref) {
 
         function chores(r) {
           if (r) {
-            message(`您${title}了用户名称为${curData.username}的这条数据`, {
+            message(`您${title}了用户名称为${curData.id}的这条数据`, {
               type: "success"
             });
           } else {
@@ -233,7 +210,7 @@ export function useAccount(tableRef: Ref) {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              studentInsert(curData)
+              subjectInsert(curData)
                 .then(r => {
                   chores(r);
                 })
@@ -242,7 +219,7 @@ export function useAccount(tableRef: Ref) {
                 });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              studentUpdate(curData).then(r => {
+              subjectUpdate(curData).then(r => {
                 chores(r);
               });
             }
@@ -264,6 +241,8 @@ export function useAccount(tableRef: Ref) {
     selectedNum,
     pagination,
     buttonClass,
+    teacherList,
+    subjectnameList,
     classList,
     onSearch,
     resetForm,

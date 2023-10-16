@@ -59,16 +59,13 @@ const {
           class="!w-[160px]"
         />
       </el-form-item>
-      <el-form-item label="学生性别：" prop="sex">
-        <el-select
-          v-model="form.sex"
-          placeholder="请选择"
+      <el-form-item label="学生姓名：" prop="name">
+        <el-input
+          v-model="form.name"
+          placeholder="请输入姓名"
           clearable
           class="!w-[160px]"
-        >
-          <el-option label="男" :value="1" />
-          <el-option label="女" :value="0" />
-        </el-select>
+        />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -85,14 +82,14 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="学生信息管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="学科信息管理" :columns="columns" @refresh="onSearch">
       <template #buttons>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          新增学生信息
+          新增学科信息
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

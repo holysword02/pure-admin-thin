@@ -112,8 +112,6 @@ router.beforeEach((to: ToRouteType, _from, next) => {
     }
   }
   const userInfo = storageSession().getItem<DataInfo<number>>(sessionKey);
-  const roles = userInfo.roles;
-  console.log(roles);
   const cookieInfo = Cookies.get(TokenKey);
 
   NProgress.start();

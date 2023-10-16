@@ -73,6 +73,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: "http://localhost:6064",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/classes/, "")
+        },
+        "/subjects": {
+          // 这里填写后端地址
+          target: "http://localhost:6063",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/subjects/, "")
         }
       }
     },

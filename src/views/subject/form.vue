@@ -7,11 +7,8 @@ import { FormProps } from "./utils/types";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
-    subjectName: "",
     subjectNameId: null,
-    teacherName: "",
     teacherId: null,
-    className: "",
     classId: null
   }),
   classList: null,
@@ -34,22 +31,22 @@ defineExpose({ getRef });
 //远程查询
 const list1 = states1.value.map((item): ListItem => {
   return {
-    value: item.subjectNameId,
-    label: `${item.subjectNameId}:${item.subjectName}`
+    value: item.id,
+    label: `${item.id}:${item.label}`
   };
 });
 
 const list2 = states2.value.map((item): ListItem => {
   return {
-    value: item.teacherId,
-    label: `${item.teacherId}:${item.teacherName}`
+    value: item.id,
+    label: `${item.username}:${item.name}`
   };
 });
 
 const list3 = states3.value.map((item): ListItem => {
   return {
-    value: item.classId,
-    label: `${item.classId}:${item.className}`
+    value: item.id,
+    label: `${item.id}:${item.name}`
   };
 });
 
