@@ -2,7 +2,7 @@
 import { getConfig } from "@/config";
 import NProgress from "@/utils/progress";
 import { transformI18n } from "@/plugins/i18n";
-import { sessionKey, type DataInfo, TokenKey } from "@/utils/auth";
+import { sessionKey, type DataInfo, TokenKey, removeToken } from "@/utils/auth";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import {
@@ -27,6 +27,7 @@ import { isUrl, openLink, storageSession, isAllEmpty } from "@pureadmin/utils";
 
 import remainingRouter from "./modules/remaining";
 import Cookies from "js-cookie";
+import { accountRoles } from "@/api/account";
 
 /** 自动导入全部静态路由，无需再手动引入！匹配 src/router/modules 目录（任何嵌套级别）中具有 .ts 扩展名的所有文件，除了 remaining.ts 文件
  * 如何匹配所有文件请看：https://github.com/mrmlnc/fast-glob#basic-syntax
@@ -132,6 +133,21 @@ router.beforeEach((to: ToRouteType, _from, next) => {
   }
 
   if (userInfo && cookieInfo) {
+    // 权限验证
+    const roleInfo = {
+      accessToken: JSON.parse(Cookies.get(TokenKey)).accessToken,
+      roles: userInfo.roles
+    };
+    accountRoles(roleInfo)
+      .then(r => {
+        if (!r) {
+          removeToken();
+          router.push("/login");
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
     // 无权限跳转403页面
     if (to.meta?.roles && !isOneOfArray(to.meta?.roles, userInfo?.roles)) {
       next({ path: "/error/403" });

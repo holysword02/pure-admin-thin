@@ -86,10 +86,9 @@ const remoteMethod = (query: string) => {
       </el-select>
     </el-form-item>
 
-    <el-form-item label="班级：" prop="classId" style="font-weight: 700">
+    <el-form-item label="班级：" prop="classId">
       <el-select-v2
         v-model="newFormInline.classId"
-        style="width: 240px; font-weight: 400"
         filterable
         remote
         :remote-method="remoteMethod"
@@ -125,3 +124,9 @@ const remoteMethod = (query: string) => {
     </el-form-item>
   </el-form>
 </template>
+
+<style>
+.el-form-item__label {
+  font-weight: 700;
+}
+</style>
