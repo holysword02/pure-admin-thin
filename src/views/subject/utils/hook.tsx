@@ -181,7 +181,9 @@ export function useAccount(tableRef: Ref) {
           classId: row?.classId ?? null,
           className: row?.className ?? null
         },
-        classList: classList?.value ?? null
+        classList: classList?.value ?? null,
+        subjectnameList: subjectnameList?.value ?? null,
+        teacherList: teacherList?.value ?? null
       },
       width: "46%",
       draggable: true,

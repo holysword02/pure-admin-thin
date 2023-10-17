@@ -81,7 +81,7 @@ const remoteMethod1 = (query: string) => {
 
 const remoteMethod2 = (query: string) => {
   if (query !== "") {
-    loading1.value = true;
+    loading2.value = true;
     setTimeout(() => {
       loading2.value = false;
       options2.value = list2.filter(item => {
@@ -95,7 +95,7 @@ const remoteMethod2 = (query: string) => {
 
 const remoteMethod3 = (query: string) => {
   if (query !== "") {
-    loading1.value = true;
+    loading3.value = true;
     setTimeout(() => {
       loading3.value = false;
       options3.value = list3.filter(item => {
@@ -106,6 +106,12 @@ const remoteMethod3 = (query: string) => {
     options3.value = [];
   }
 };
+
+// 假设你的 id 是 someId
+const selectedItem = options1.value.find(item => item.value === value);
+if (selectedItem) {
+  newFormInline.value.subjectNameId = selectedItem.label;
+}
 </script>
 
 <template>
@@ -115,10 +121,17 @@ const remoteMethod3 = (query: string) => {
     :rules="formRules"
     label-width="92px"
   >
-    <el-form-item label="学科名:" prop="subjectNameId" style="font-weight: 700">
+    <el-form-item label="学科id:" prop="id">
+      <el-input
+        v-model="newFormInline.id"
+        placeholder="请输入学科id"
+        clearable
+      />
+    </el-form-item>
+    <el-form-item label="学科名:" prop="subjectNameId">
       <el-select-v2
         v-model="newFormInline.subjectNameId"
-        style="width: 240px; font-weight: 400"
+        style="width: 240px"
         filterable
         remote
         :remote-method="remoteMethod1"
@@ -129,10 +142,10 @@ const remoteMethod3 = (query: string) => {
       />
     </el-form-item>
 
-    <el-form-item label="老师名:" prop="teacherId" style="font-weight: 700">
+    <el-form-item label="老师名:" prop="teacherId">
       <el-select-v2
         v-model="newFormInline.teacherId"
-        style="width: 240px; font-weight: 400"
+        style="width: 240px"
         filterable
         remote
         :remote-method="remoteMethod2"
@@ -143,10 +156,10 @@ const remoteMethod3 = (query: string) => {
       />
     </el-form-item>
 
-    <el-form-item label="班级名:" prop="classId" style="font-weight: 700">
+    <el-form-item label="班级名:" prop="classId">
       <el-select-v2
         v-model="newFormInline.classId"
-        style="width: 240px; font-weight: 400"
+        style="width: 240px"
         filterable
         remote
         :remote-method="remoteMethod3"
@@ -158,3 +171,9 @@ const remoteMethod3 = (query: string) => {
     </el-form-item>
   </el-form>
 </template>
+
+<style>
+.el-form-item__label {
+  font-weight: 700;
+}
+</style>

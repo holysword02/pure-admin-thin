@@ -18,6 +18,8 @@ interface FormItemProps {
 interface FormProps {
   formInline: FormItemProps;
   classList: Array<any>;
+  teacherList: Array<any>;
+  subjectnameList: Array<any>;
 }
 
 export type { FormItemProps, FormProps };
