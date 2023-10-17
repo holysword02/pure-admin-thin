@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
-const options = ref();
 
 function getRef() {
   return ruleFormRef.value;
