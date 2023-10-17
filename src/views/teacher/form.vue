@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import { teacherList } from "@/api/account";
 
 //TODO 表单信息
 const props = withDefaults(defineProps<FormProps>(), {
@@ -26,11 +25,6 @@ function getRef() {
 }
 
 defineExpose({ getRef });
-onMounted(async () => {
-  teacherList().then(r => {
-    options.value = r;
-  });
-});
 </script>
 
 <template>
@@ -46,7 +40,6 @@ onMounted(async () => {
         placeholder="请输入账号"
         clearable
       />
-
     </el-form-item>
 
     <el-form-item label="教师姓名：" prop="name">

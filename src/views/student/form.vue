@@ -86,18 +86,9 @@ const remoteMethod = (query: string) => {
       </el-select>
     </el-form-item>
 
-    <el-form-item label="出生日期：" prop="birthday">
-      <el-date-picker
-        v-model="newFormInline.birthday"
-        type="date"
-        placeholder="请选择出生日期"
-      />
-    </el-form-item>
-
-    <el-form-item label="班级：" prop="classId" style="font-weight: 700">
+    <el-form-item label="班级：" prop="classId">
       <el-select-v2
         v-model="newFormInline.classId"
-        style="width: 240px; font-weight: 400"
         filterable
         remote
         :remote-method="remoteMethod"
@@ -105,6 +96,14 @@ const remoteMethod = (query: string) => {
         :options="options1"
         :loading="loading1"
         placeholder="请输入班级"
+      />
+    </el-form-item>
+
+    <el-form-item label="出生日期：" prop="birthday">
+      <el-date-picker
+        v-model="newFormInline.birthday"
+        type="date"
+        placeholder="请选择出生日期"
       />
     </el-form-item>
 
