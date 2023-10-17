@@ -40,7 +40,7 @@ const { title, getDropdownItemStyle, getDropdownItemClass } = useNav();
 const { locale, translationCh, translationEn } = useTranslationLang();
 
 const ruleForm = reactive({
-  username: "",
+  username: "123",
   password: "admin123"
 });
 
@@ -55,13 +55,19 @@ const onLogin = async (formEl: FormInstance | undefined) => {
           password: ruleForm.password
         })
         .then(res => {
+          loading.value = false;
           if (res.success) {
             // 获取后端路由
             initRouter().then(() => {
               router.push(getTopMenu(true).path);
               message("登录成功", { type: "success" });
             });
+          } else {
+            message("登录失败", { type: "error" });
           }
+        })
+        .catch(e => {
+          console.log(e);
         });
     } else {
       loading.value = false;
