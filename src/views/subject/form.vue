@@ -87,7 +87,7 @@ function handleChangeClass() {
         clearable
       />
     </el-form-item>
-    <el-form-item label="学科名:">
+    <el-form-item label="学科:" prop="subjectNameId">
       <el-select-v2
         v-model="newFormInline.subjectNameId"
         style="width: 240px"
@@ -100,7 +100,7 @@ function handleChangeClass() {
       />
     </el-form-item>
 
-    <el-form-item label="老师名:" prop="teacherId">
+    <el-form-item label="老师:" prop="teacherId">
       <el-select-v2
         v-model="newFormInline.teacherId"
         style="width: 240px"
@@ -113,7 +113,7 @@ function handleChangeClass() {
       />
     </el-form-item>
 
-    <el-form-item label="班级名:" prop="classId">
+    <el-form-item label="班级:" prop="classId">
       <el-select-v2
         v-model="newFormInline.classId"
         style="width: 240px"

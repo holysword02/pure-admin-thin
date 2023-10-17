@@ -15,6 +15,8 @@ interface FormItemProps {
   email: string;
   /** 班级编号 */
   classId: string;
+  /** 班级名称 */
+  className: string;
 }
 
 interface FormProps {
