@@ -32,85 +32,44 @@ function getRef() {
 defineExpose({ getRef });
 
 //远程查询
+interface ListItem {
+  value: string;
+  label: string;
+}
+
 const list1 = states1.value.map((item): ListItem => {
   return {
     value: item.id,
-    label: `${item.id}:${item.label}`
+    label: item.label
   };
 });
 
 const list2 = states2.value.map((item): ListItem => {
   return {
     value: item.id,
-    label: `${item.username}:${item.name}`
+    label: item.name
   };
 });
 
 const list3 = states3.value.map((item): ListItem => {
   return {
     value: item.id,
-    label: `${item.id}:${item.name}`
+    label: item.name
   };
 });
 
-interface ListItem {
-  value: string;
-  label: string;
+const optionRefSubject = ref();
+const optionRefTeacher = ref();
+const optionRefClass = ref();
+
+function handleChangeSubject() {
+  newFormInline.value.subjectName = optionRefSubject.value.currentPlaceholder;
 }
-
-const options1 = ref<ListItem[]>([]);
-const loading1 = ref(false);
-const options2 = ref<ListItem[]>([]);
-const loading2 = ref(false);
-const options3 = ref<ListItem[]>([]);
-const loading3 = ref(false);
-
-const remoteMethod1 = (query: string) => {
-  if (query !== "") {
-    loading1.value = true;
-    setTimeout(() => {
-      loading1.value = false;
-      options1.value = list1.filter(item => {
-        return item.label.toLowerCase().includes(query.toLowerCase());
-      });
-    }, 200);
-  } else {
-    options1.value = [];
-  }
-};
-
-const remoteMethod2 = (query: string) => {
-  if (query !== "") {
-    loading2.value = true;
-    setTimeout(() => {
-      loading2.value = false;
-      options2.value = list2.filter(item => {
-        return item.label.toLowerCase().includes(query.toLowerCase());
-      });
-    }, 200);
-  } else {
-    options2.value = [];
-  }
-};
-
-const remoteMethod3 = (query: string) => {
-  if (query !== "") {
-    loading3.value = true;
-    setTimeout(() => {
-      loading3.value = false;
-      options3.value = list3.filter(item => {
-        return item.label.toLowerCase().includes(query.toLowerCase());
-      });
-    }, 200);
-  } else {
-    options3.value = [];
-  }
-};
-
-// 假设你的 id 是 someId
-const selectedItem = options1.value.find(item => item.value === value);
-if (selectedItem) {
-  newFormInline.value.subjectNameId = selectedItem.label;
+function handleChangeTeacher() {
+  newFormInline.value.teacherName = optionRefTeacher.value.currentPlaceholder;
+}
+function handleChangeClass() {
+  newFormInline.value.className = optionRefClass.value.currentPlaceholder;
 }
 </script>
 
@@ -128,16 +87,15 @@ if (selectedItem) {
         clearable
       />
     </el-form-item>
-    <el-form-item label="学科名:" prop="subjectNameId">
+    <el-form-item label="学科名:">
       <el-select-v2
         v-model="newFormInline.subjectNameId"
         style="width: 240px"
         filterable
-        remote
-        :remote-method="remoteMethod1"
         clearable
-        :options="options1"
-        :loading="loading1"
+        :options="list1"
+        ref="optionRefSubject"
+        @change="handleChangeSubject"
         placeholder="请输入学科"
       />
     </el-form-item>
@@ -147,11 +105,10 @@ if (selectedItem) {
         v-model="newFormInline.teacherId"
         style="width: 240px"
         filterable
-        remote
-        :remote-method="remoteMethod2"
         clearable
-        :options="options2"
-        :loading="loading2"
+        :options="list2"
+        ref="optionRefTeacher"
+        @change="handleChangeTeacher"
         placeholder="请输入老师"
       />
     </el-form-item>
@@ -161,11 +118,10 @@ if (selectedItem) {
         v-model="newFormInline.classId"
         style="width: 240px"
         filterable
-        remote
-        :remote-method="remoteMethod3"
         clearable
-        :options="options3"
-        :loading="loading3"
+        :options="list3"
+        ref="optionRefClass"
+        @change="handleChangeClass"
         placeholder="请输入班级"
       />
     </el-form-item>
