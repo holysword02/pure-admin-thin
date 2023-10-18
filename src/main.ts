@@ -8,6 +8,9 @@ import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
+import StarfishEditor from "starfish-editor";
+import "starfish-editor/src/styles/index.scss";
+import { Dynamicform } from "starfish-form";
 
 import Table from "@pureadmin/table";
 import PureDescriptions from "@pureadmin/descriptions";
@@ -42,6 +45,7 @@ import {
 app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
+app.component(Dynamicform.name, Dynamicform);
 
 // 全局注册按钮级别权限组件
 import { Auth } from "@/components/ReAuth";
@@ -59,6 +63,7 @@ getServerConfig(app).then(async config => {
     .use(ElementPlus)
     .use(useEcharts)
     .use(Table)
+    .use(StarfishEditor)
     .use(PureDescriptions);
   app.mount("#app");
 });
