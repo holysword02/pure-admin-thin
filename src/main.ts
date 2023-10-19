@@ -8,12 +8,12 @@ import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
-import StarfishEditor from "starfish-editor";
-import "starfish-editor/src/styles/index.scss";
-import { Dynamicform } from "starfish-form";
 
 import Table from "@pureadmin/table";
 import PureDescriptions from "@pureadmin/descriptions";
+//表单生成
+import formCreate from "@form-create/element-ui";
+import FcDesigner from "@form-create/designer";
 
 // 引入重置样式
 import "./style/reset.scss";
@@ -45,7 +45,6 @@ import {
 app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
-app.component(Dynamicform.name, Dynamicform);
 
 // 全局注册按钮级别权限组件
 import { Auth } from "@/components/ReAuth";
@@ -63,7 +62,8 @@ getServerConfig(app).then(async config => {
     .use(ElementPlus)
     .use(useEcharts)
     .use(Table)
-    .use(StarfishEditor)
-    .use(PureDescriptions);
+    .use(PureDescriptions)
+    .use(FcDesigner)
+    .use(formCreate);
   app.mount("#app");
 });

@@ -20,7 +20,6 @@
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "lint:pretty": "pretty-quick --staged",
     "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:stylelint",
-    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm"
   },
   "browserslist": [
@@ -29,7 +28,8 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@lljj/vue3-form-element": "^1.19.0",
+    "@form-create/designer": "^3.1.4",
+    "@form-create/element-ui": "^3.1.25",
     "@pureadmin/descriptions": "^1.1.1",
     "@pureadmin/table": "^2.3.3",
     "@pureadmin/utils": "^1.9.10",
@@ -50,7 +50,6 @@
     "qs": "^6.11.2",
     "responsive-storage": "^2.2.0",
     "sortablejs": "^1.15.0",
-    "starfish-editor": "^1.0.16",
     "vue": "^3.3.4",
     "vue-i18n": "^9.5.0",
     "vue-router": "^4.2.5",
@@ -70,7 +69,7 @@
     "@types/node": "^20.8.7",
     "@types/nprogress": "0.2.0",
     "@types/qs": "^6.9.9",
-    "@types/sortablejs": "^1.15.3",
+    "@types/sortablejs": "^1.15.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-vue": "^4.4.0",
@@ -83,7 +82,6 @@
     "eslint": "^8.51.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.17.0",
-    "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
     "picocolors": "^1.0.0",
     "postcss": "^8.4.31",
