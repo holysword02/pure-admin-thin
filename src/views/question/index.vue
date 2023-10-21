@@ -9,6 +9,7 @@ import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
+import { useDetail } from "@/views/question/tabs/hooks";
 
 defineOptions({
   name: "Student"
@@ -34,6 +35,7 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useAccount(tableRef);
+const { toDetail, router } = useDetail();
 </script>
 
 <template>
@@ -146,7 +148,7 @@ const {
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="console.log(row)"
+              @click="toDetail({ id: row.fieldId }, 'params')"
             >
               问卷修改
             </el-button>

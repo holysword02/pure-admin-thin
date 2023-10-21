@@ -12,8 +12,15 @@ const quesId = ref("");
 const quesValue = ref("");
 const q = ref(false);
 const rule1 = ref([]);
+const fApi = ref("");
 useAccount(quesId, quesValue);
 
+const options = {
+  onSubmit: (formData) => {
+    alert(JSON.stringify(formData));
+  },
+  resetBtn: true,
+};
 const getForm = () => {
   q.value = true;
   // for (const i in quesValue.value) {
@@ -32,7 +39,7 @@ const getForm = () => {
       </div>
     </template>
     <!-- 只有当 rule.value 有值时才渲染 FormCreate -->
-    <FormCreate v-if="q" :rule="rule1" />
+    <FormCreate v-if="q" :rule="rule1" v-model:api="fApi" :option="options" />
     <!-- 显示 rule 的值 -->
 
     <el-button @click="getForm" v-if="quesValue !== null"

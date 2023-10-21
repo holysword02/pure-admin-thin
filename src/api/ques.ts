@@ -6,11 +6,10 @@ type Ques = {
   value: Array<any>;
 };
 //查询全部
-export const quesFindAll = () => {
-  return http.request<Ques>(
-    "get",
-    "/quess/survey/find/1715391881803374594"
-  );
+export const quesOne = (id?: string) => {
+  return http.request<Ques>("get", "/quess/survey/findone/" + id, {
+    withCredentials: true
+  });
 };
 
 // 新增

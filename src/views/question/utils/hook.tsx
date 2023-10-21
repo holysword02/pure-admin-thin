@@ -49,18 +49,18 @@ export function useAccount(tableRef: Ref) {
       minWidth: 130
     },
     {
-      label: "描述",
-      prop: "description",
-      minWidth: 130
-    },
-    {
-      label: "学科编号",
-      prop: "subjectId",
-      minWidth: 130
-    },
-    {
       label: "学科名称",
       prop: "subjectName",
+      minWidth: 130
+    },
+    {
+      label: "学科教师",
+      prop: "teacherName",
+      minWidth: 130
+    },
+    {
+      label: "班级",
+      prop: "teacherName",
       minWidth: 130
     },
     {
