@@ -238,6 +238,7 @@ export function useAccount(tableRef: Ref) {
                 .catch(e => {
                   chores(e);
                 });
+              console.log("curData", curData);
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
               studentUpdate(curData).then(r => {

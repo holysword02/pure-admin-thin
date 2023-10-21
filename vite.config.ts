@@ -91,6 +91,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: "http://localhost:6066",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/quess/, "")
+        },
+        "/surveys": {
+          // 这里填写后端地址
+          target: "http://localhost:6066",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/surveys/, "")
         }
       }
     },

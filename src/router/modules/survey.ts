@@ -9,7 +9,7 @@ export default {
     {
       path: "/formDesign/index",
       name: "FormDesign",
-      component: () => import("@/views/survey/components/Home.vue"),
+      component: () => import("@/views/ques/survey/index.vue"),
       meta: {
         title: "FormDesign"
       }

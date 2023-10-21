@@ -7,7 +7,10 @@ type Ques = {
 };
 //查询全部
 export const quesFindAll = () => {
-  return http.request<Ques>("get", "/quess/survey/6530e4f16a90a2ec3f03402f");
+  return http.request<Ques>(
+    "get",
+    "/quess/survey/find/1715391881803374594"
+  );
 };
 
 // 新增

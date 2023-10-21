@@ -16,9 +16,9 @@ useAccount(quesId, quesValue);
 
 const getForm = () => {
   q.value = true;
-  for (const i in quesValue.value) {
-    quesValue.value[i] = JSON.parse(quesValue.value[i]);
-  }
+  // for (const i in quesValue.value) {
+  //   quesValue.value[i] = JSON.parse(quesValue.value[i]);
+  // }
   rule1.value = quesValue.value;
   console.log(quesValue.value);
 };

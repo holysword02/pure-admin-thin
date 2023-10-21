@@ -5,7 +5,7 @@ import { FindResult } from "@/api/types";
 export const questionFind = (pageNum?: number, pageSize?: number) => {
   return http.request<FindResult>(
     "get",
-    "/questions/question/find?pageNum=" + pageNum + "&pageSize=" + pageSize
+    "/questions/survey/findAll?pageNum=" + pageNum + "&pageSize=" + pageSize
   );
 };
 

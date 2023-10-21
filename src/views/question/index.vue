@@ -146,9 +146,19 @@ const {
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
+              @click="console.log(row)"
+            >
+              问卷修改
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              :icon="useRenderIcon(EditPen)"
               @click="openDialog('编辑', row)"
             >
-              修改
+              状态修改
             </el-button>
             <el-popconfirm
               :title="`是否确认删除用户编号为${row.id}的这条数据`"

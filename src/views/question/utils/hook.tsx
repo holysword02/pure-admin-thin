@@ -15,6 +15,7 @@ import {
   questionList,
   questionUpdate
 } from "@/api/question";
+import dayjs from "dayjs";
 
 export function useAccount(tableRef: Ref) {
   const options = ref();
@@ -43,8 +44,18 @@ export function useAccount(tableRef: Ref) {
       reserveSelection: true // 数据刷新后保留选项
     },
     {
-      label: "内容",
-      prop: "label",
+      label: "问卷名",
+      prop: "name",
+      minWidth: 130
+    },
+    {
+      label: "描述",
+      prop: "description",
+      minWidth: 130
+    },
+    {
+      label: "学科编号",
+      prop: "subjectId",
       minWidth: 130
     },
     {
@@ -70,6 +81,20 @@ export function useAccount(tableRef: Ref) {
           onChange={() => onChange(scope as any)}
         />
       )
+    },
+    {
+      label: "创建时间",
+      minWidth: 90,
+      prop: "createDate",
+      formatter: ({ createDate }) =>
+        dayjs(createDate).format("YYYY-MM-DD HH:mm:ss")
+    },
+    {
+      label: "结束时间",
+      minWidth: 90,
+      prop: "endDate",
+      formatter: ({ updateDate }) =>
+        dayjs(updateDate).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "操作",
