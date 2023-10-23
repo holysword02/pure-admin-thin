@@ -9,6 +9,11 @@ export const subjectFind = (pageNum?: number, pageSize?: number) => {
   );
 };
 
+//查询全部
+export const subjectFindAll = () => {
+  return http.request("get", "/subjects/subject/findAll");
+};
+
 // 新增
 export const subjectInsert = (data?: object) => {
   return http.request("post", "/subjects/subject/add", { data });

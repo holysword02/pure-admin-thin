@@ -93,7 +93,7 @@ const { toDetail, router } = useDetail();
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="router.push({ name: 'NewSurvey' })"
         >
           新增问题
         </el-button>

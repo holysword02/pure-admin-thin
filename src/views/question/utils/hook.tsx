@@ -8,6 +8,8 @@ import { computed, Ref } from "vue";
 import { usePublicHooks } from "@/views/account/utils/hooks";
 import { ElMessageBox } from "element-plus";
 import { accountUpdate } from "@/api/account";
+import { useDetail } from "@/views/question/tabs/hooks";
+import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import {
   questionDelete,
   questionFind,
@@ -16,15 +18,22 @@ import {
   questionUpdate
 } from "@/api/question";
 import dayjs from "dayjs";
+import { surveyUpdate } from "@/api/survey";
+import {subjectFind, subjectFindAll} from "@/api/subject";
+import { classesFindAll } from "@/api/classes";
+import { dictFindAll } from "@/api/dict";
+import { teacherFindAll } from "@/api/teacher";
 
 export function useAccount(tableRef: Ref) {
   const options = ref();
   const formRef = ref();
+  const subjectList = ref();
   const dataList = ref([]);
   const loading = ref(true);
   const switchLoadMap = ref({});
   const { switchStyle } = usePublicHooks();
   const selectedNum = ref(0);
+  const { toDetail, router } = useDetail();
   const form = reactive({
     username: "",
     name: "",
@@ -130,7 +139,8 @@ export function useAccount(tableRef: Ref) {
       }
     )
       .then(() => {
-        accountUpdate(row);
+        surveyUpdate(row);
+        console.log(row);
         switchLoadMap.value[index] = Object.assign(
           {},
           switchLoadMap.value[index],
@@ -232,70 +242,44 @@ export function useAccount(tableRef: Ref) {
     }, 500);
   }
 
+  async function subjectSearch() {
+    loading.value = true;
+    const { records, total } = await subjectFind(
+      pagination.currentPage,
+      pagination.pageSize
+    );
+    dataList.value = records;
+    pagination.total = total;
+
+    subjectList.value = await subjectFindAll();
+    console.log(subjectList.value);
+
+    setTimeout(() => {
+      loading.value = false;
+    }, 500);
+  }
+
   const resetForm = formEl => {
     if (!formEl) return;
     formEl.resetFields();
     onSearch();
   };
 
-  function openDialog(title = "新增", row?: FormItemProps) {
-    addDialog({
-      title: `${title}问题`,
-      props: {
-        formInline: {
-          title,
-          id: row?.id ?? null,
-          label: row?.label ?? "",
-          parentId: row?.parentId ?? "0",
-          isActive: row?.isActive ?? 1,
-          subjectId: row?.subjectId ?? null,
-          subjectName: row?.subjectName ?? "",
-          orderBy: row?.orderBy ?? null
-        },
-        options: options?.value ?? null
-      },
-      width: "46%",
-      draggable: true,
-      fullscreenIcon: true,
-      closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef }),
-      beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
-
-        function chores(r) {
-          if (r) {
-            message(`您${title}了用户名称为${curData.id}的这条数据`, {
-              type: "success"
-            });
-          } else {
-            message(`您${title}数据失败`, {
-              type: "success"
-            });
-          }
-          done(); // 关闭弹框
-          onSearch(); // 刷新表格数据
-        }
-
-        FormRef.validate(valid => {
-          if (valid) {
-            console.log("curData", curData);
-            // 表单规则校验通过
-            if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              questionInsert(curData).then(r => {
-                chores(r);
-              });
-            } else {
-              // 实际开发先调用编辑接口，再进行下面操作
-              questionUpdate(curData).then(r => {
-                chores(r);
-              });
-            }
-          }
-        });
+  function openDialog() {
+    // 保存信息到标签页
+    useMultiTagsStoreHook().handleTags("push", {
+      path: `/question/tabs/query-detail`,
+      name: "NewSurvey",
+      meta: {
+        title: `新建问卷`,
+        // 如果使用的是非国际化精简版title可以像下面这么写
+        // title: `No.${index} - 详情信息`,
+        // 最大打开标签数
+        dynamicLevel: 3
       }
     });
+    // 路由跳转
+    router.push({ name: "NewSurvey" });
   }
 
   onMounted(async () => {
@@ -313,6 +297,8 @@ export function useAccount(tableRef: Ref) {
     options,
     onSearch,
     resetForm,
+    subjectSearch,
+    subjectList,
     onbatchDel,
     openDialog,
     handleDelete,
