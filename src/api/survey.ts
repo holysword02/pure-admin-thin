@@ -13,6 +13,13 @@ export const surveyDelete = id => {
   });
 };
 
+//查询问卷
+export const surveyFind = id => {
+  return http.request("get", "/surveys/survey/find/" + id, {
+    withCredentials: true
+  });
+};
+
 // 修改问卷
 export const surveyoneUpdate = (data?: object) => {
   return http.request(

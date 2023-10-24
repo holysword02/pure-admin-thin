@@ -46,13 +46,13 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       proxy: {
         "/system": {
           // 这里填写后端地址
-          target: "http://localhost:6061",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/system/, "")
         },
         "/teachers": {
           // 这里填写后端地址
-          target: "http://localhost:6062",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/teachers/, "")
         },
@@ -97,6 +97,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: "http://localhost:6066",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/surveys/, "")
+        },
+        "/votes": {
+          // 这里填写后端地址
+          target: "http://localhost:5050",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/votes/, "")
         }
       }
     },

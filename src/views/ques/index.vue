@@ -19,7 +19,7 @@ const options = {
   onSubmit: (formData) => {
     alert(JSON.stringify(formData));
   },
-  resetBtn: true,
+  resetBtn: true
 };
 const getForm = () => {
   q.value = true;
