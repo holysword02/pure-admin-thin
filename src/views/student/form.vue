@@ -71,7 +71,7 @@ function handleChangeClass() {
     <el-form-item label="学生性别:" prop="sex">
       <el-select v-model="newFormInline.sex" placeholder="请选择性别" clearable>
         <el-option label="男" :value="1" />
-        <el-option label="女" :value="0" />
+        <el-option label="女" :value="2" />
       </el-select>
     </el-form-item>
 

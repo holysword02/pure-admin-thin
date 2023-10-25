@@ -53,10 +53,10 @@ export function useAccount(tableRef: Ref) {
       cellRenderer: ({ row, props }) => (
         <el-tag
           size={props.size}
-          type={row.sex === 0 ? "danger" : ""}
+          type={row.sex === 2 ? "danger" : ""}
           effect="plain"
         >
-          {row.sex === 0 ? "女" : "男"}
+          {row.sex === 2 ? "女" : "男"}
         </el-tag>
       )
     },
@@ -189,7 +189,8 @@ export function useAccount(tableRef: Ref) {
           name: row?.name ?? "",
           sex: row?.sex ?? null,
           birthday: row?.birthday ?? null,
-          phone: row?.phone ?? ""
+          phone: row?.phone ?? "",
+          email: row?.email ?? ""
         }
       },
       width: "46%",
