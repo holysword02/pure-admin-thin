@@ -103,6 +103,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/votes/, "")
+        },
+        "/statistics": {
+          // 这里填写后端地址
+          target: "http://localhost:6068",
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/statistics/, "")
         }
       }
     },

@@ -80,13 +80,6 @@ function handleChangeClass() {
     :rules="formRules"
     label-width="92px"
   >
-    <el-form-item label="学科id:" prop="id">
-      <el-input
-        v-model="newFormInline.id"
-        placeholder="请输入学科id"
-        clearable
-      />
-    </el-form-item>
     <el-form-item label="学科:" prop="subjectNameId">
       <el-select-v2
         v-model="newFormInline.subjectNameId"

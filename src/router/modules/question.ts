@@ -35,6 +35,17 @@ export default {
         activePath: "/tabs/index",
         roles: ["0"]
       }
+    },
+    {
+      path: "/question/statistic/index",
+      name: "Statistic",
+      component: () => import("@/views/question/statistic/index.vue"),
+      meta: {
+        // 不在menu菜单中显示
+        showLink: false,
+        activePath: "/statistic/index",
+        roles: ["0"]
+      }
     }
   ]
 };

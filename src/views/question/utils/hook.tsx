@@ -1,13 +1,9 @@
-import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { addDialog } from "@/components/ReDialog";
-import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { computed, Ref } from "vue";
 import { usePublicHooks } from "@/views/account/utils/hooks";
 import { ElMessageBox } from "element-plus";
-import { accountUpdate } from "@/api/account";
 import { useDetail } from "@/views/question/tabs/hooks";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import {
@@ -69,7 +65,7 @@ export function useAccount(tableRef: Ref) {
     },
     {
       label: "班级",
-      prop: "teacherName",
+      prop: "className",
       minWidth: 130
     },
     {
@@ -102,8 +98,7 @@ export function useAccount(tableRef: Ref) {
       label: "结束时间",
       minWidth: 90,
       prop: "endDate",
-      formatter: ({ updateDate }) =>
-        dayjs(updateDate).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ endDate }) => dayjs(endDate).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "操作",

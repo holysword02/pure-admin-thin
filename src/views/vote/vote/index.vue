@@ -1,9 +1,7 @@
 <script setup>
-import formCreate from "@form-create/element-ui";
-import { onMounted, reactive, ref } from "vue";
-import { quesOne } from "@/api/ques";
+import { onMounted, ref } from "vue";
 import { useDetail } from "./hooks";
-import { surveyFind, surveyInsert, surveyUpdate } from "@/api/survey";
+import { surveyFind } from "@/api/survey";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { voteUpdate } from "@/api/vote";
 
@@ -24,7 +22,8 @@ const options = {
       .then(() => {
         const data = {
           id: getParameter.id,
-          value: formData
+          value: formData,
+          surveyId: getParameter.surveyId
         };
         voteUpdate(data);
         ElMessage({
@@ -39,20 +38,6 @@ const options = {
         });
       });
   }
-  //   const data = {
-  //     id: getParameter.id,
-  //     value: formData
-  //   };
-  //   console.log(data);
-  //   voteUpdate(data).then(res => {
-  //     if (res.code === 200) {
-  //       ElMessage.success("修改成功");
-  //     } else {
-  //       ElMessage.error("修改失败");
-  //     }
-  //   });
-  // },
-  // resetBtn: true
 };
 const states = ref();
 const rule = ref();

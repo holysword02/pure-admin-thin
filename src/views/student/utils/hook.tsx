@@ -199,7 +199,9 @@ export function useAccount(tableRef: Ref) {
           sex: row?.sex ?? null,
           birthday: row?.birthday ?? null,
           phone: row?.phone ?? "",
-          email: row?.email ?? ""
+          email: row?.email ?? "",
+          classId: row?.classId ?? null,
+          className: row?.className ?? null
         },
         classList: classList?.value ?? null
       },

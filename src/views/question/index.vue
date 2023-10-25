@@ -10,6 +10,7 @@ import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 import { useDetail } from "@/views/question/tabs/hooks";
+import { useDetail1 } from "@/views/question/statistic/hooks";
 
 defineOptions({
   name: "Student"
@@ -36,6 +37,7 @@ const {
   handleSelectionChange
 } = useAccount(tableRef);
 const { toDetail, router } = useDetail();
+const { toDetail1, router1 } = useDetail1();
 </script>
 
 <template>
@@ -151,6 +153,21 @@ const { toDetail, router } = useDetail();
               @click="toDetail({ id: row.fieldId }, 'params')"
             >
               问卷修改
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              :icon="useRenderIcon(EditPen)"
+              @click="
+                toDetail1(
+                  { surveyId: row.id, statisticId: row.fieldId },
+                  'query'
+                )
+              "
+            >
+              查看统计
             </el-button>
             <el-button
               class="reset-margin"

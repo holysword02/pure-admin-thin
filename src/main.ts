@@ -8,7 +8,6 @@ import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
-
 import Table from "@pureadmin/table";
 import PureDescriptions from "@pureadmin/descriptions";
 //表单生成
