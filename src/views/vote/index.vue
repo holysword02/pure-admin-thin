@@ -57,7 +57,7 @@ const { toDetail } = useDetail();
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="toDetail({ id: row.id, surveyId: row.surveyId }, 'query')"
+              @click="toDetail({ id: row.id, statisticId: row.surveyId }, 'query')"
             >
               进行投票
             </el-button>

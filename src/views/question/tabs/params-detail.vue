@@ -15,10 +15,23 @@ const designerRef = reactive({ id: null, value: [] });
 const designerData = ref();
 initToDetail("params");
 const ruleData = ref(null);
+const options = {
+  form: {
+    labelPosition: "top",
+    size: "large",
+    labelWidth: "125px",
+    hideRequiredAsterisk: false,
+    showMessage: true,
+    inlineMessage: false
+  },
+  submitBtn: true,
+  resetBtn: true
+};
 function test2() {
   quesOne(getParameter.id).then(res => {
     designerRef.id = res.id;
     designerRef.value = res.value;
+    designerData.value.setOption(options);
     designerData.value.setRule(designerRef.value);
     designerData.value.removeMenu("layout");
     designerData.value.removeMenuItem("upload");

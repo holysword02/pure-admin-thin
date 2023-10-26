@@ -31,6 +31,9 @@ onMounted(async () => {
           text: item.question,
           left: "center"
         },
+        tooltip: {
+          trigger: "item"
+        },
         series: [
           {
             name: "Answers",
@@ -51,6 +54,7 @@ onMounted(async () => {
 
 <template>
   <el-card>
+    <el-button type="primary" @click="findone">刷新</el-button>
     <el-row>
       <el-col v-for="(item, index) in number" :key="index" :span="6">
         <div :id="`chart${index}`" style="height: 200px" />

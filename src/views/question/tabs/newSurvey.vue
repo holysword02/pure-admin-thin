@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { ref, onMounted, reactive} from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { surveyInsert } from "@/api/survey";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { subjectFindAll } from "@/api/subject";
@@ -13,6 +13,18 @@ interface ListItem {
   value: string;
   label: string;
 }
+const options1 = {
+  form: {
+    labelPosition: "top",
+    size: "large",
+    labelWidth: "125px",
+    hideRequiredAsterisk: false,
+    showMessage: true,
+    inlineMessage: false
+  },
+  submitBtn: true,
+  resetBtn: true
+};
 const states = ref();
 async function test2() {
   states.value = await subjectFindAll();
@@ -121,6 +133,9 @@ const setDesignerValue = () => {
   // 关闭输入框对话框
   inputDialogVisible.value = false;
 };
+onMounted(() => {
+  designerData.value.setOption = options1;
+});
 </script>
 
 <template>

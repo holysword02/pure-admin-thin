@@ -11,8 +11,17 @@ defineOptions({
 
 const { initToDetail, getParameter } = useDetail();
 initToDetail("query");
-
 const options = {
+  form: {
+    labelPosition: "top",
+    size: "large",
+    labelWidth: "125px",
+    hideRequiredAsterisk: false,
+    showMessage: true,
+    inlineMessage: false
+  },
+  submitBtn: true,
+  resetBtn: true,
   onSubmit: formData => {
     ElMessageBox.confirm("是否提交当前数据?", "Warning", {
       confirmButtonText: "OK",

@@ -162,7 +162,7 @@ const { toDetail1, router1 } = useDetail1();
               :icon="useRenderIcon(EditPen)"
               @click="
                 toDetail1(
-                  { surveyId: row.id, statisticId: row.fieldId },
+                  { surveyId: row.id, statisticId: row.statisticId },
                   'query'
                 )
               "

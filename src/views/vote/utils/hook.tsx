@@ -41,7 +41,7 @@ export function useAccount(tableRef: Ref) {
       )
     },
     {
-      label: "创建时间",
+      label: "填写时间",
       minWidth: 90,
       prop: "createDate",
       formatter: ({ createDate }) =>
