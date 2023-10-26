@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { useDetail } from "./hooks";
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { quesOne } from "@/api/ques";
 import { surveyoneUpdate } from "@/api/survey";
 import { ElMessage, ElMessageBox } from "element-plus";

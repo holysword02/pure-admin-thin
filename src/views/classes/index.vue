@@ -11,7 +11,7 @@ import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Classes",
+  name: "Classes"
 });
 
 const formRef = ref();

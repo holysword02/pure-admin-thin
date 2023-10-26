@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { surveyInsert } from "@/api/survey";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { FormProps } from "../utils/types";
-import { useAccount } from "../utils/hook";
 import { subjectFindAll } from "@/api/subject";
 
 defineOptions({
@@ -17,7 +15,10 @@ const states = ref();
 async function test2() {
   states.value = await subjectFindAll();
   const list = states.value.map((item): ListItem => {
-    return { value: `${item.id}`, label: `${item.className}:${item.subjectName}(${item.teacherName})` };
+    return {
+      value: `${item.id}`,
+      label: `${item.className}:${item.subjectName}(${item.teacherName})`
+    };
   });
   options.value = list;
 }

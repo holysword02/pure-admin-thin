@@ -1,5 +1,5 @@
-import { removeToken, setToken, type DataInfo } from "./auth";
-import { subBefore, getQueryMap } from "@pureadmin/utils";
+import { type DataInfo, removeToken, setToken } from "./auth";
+import { getQueryMap, subBefore } from "@pureadmin/utils";
 
 /**
  * 简版前端单点登录，根据实际业务自行编写

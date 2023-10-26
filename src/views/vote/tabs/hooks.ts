@@ -1,10 +1,10 @@
-import { isString, isEmpty } from "@pureadmin/utils";
+import { isEmpty, isString } from "@pureadmin/utils";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import {
-  useRouter,
-  useRoute,
   type LocationQueryRaw,
-  type RouteParamsRaw
+  type RouteParamsRaw,
+  useRoute,
+  useRouter
 } from "vue-router";
 
 export function useDetail() {

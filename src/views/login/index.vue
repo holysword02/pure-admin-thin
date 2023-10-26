@@ -9,10 +9,10 @@ import type { FormInstance } from "element-plus";
 import { $t, transformI18n } from "@/plugins/i18n";
 import { useLayout } from "@/layout/hooks/useLayout";
 import { useUserStoreHook } from "@/store/modules/user";
-import { initRouter, getTopMenu } from "@/router/utils";
-import { bg, avatar, illustration } from "./utils/static";
+import { getTopMenu, initRouter } from "@/router/utils";
+import { avatar, bg, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
+import { onBeforeUnmount, onMounted, reactive, ref, toRaw } from "vue";
 import { useTranslationLang } from "@/layout/hooks/useTranslationLang";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
 

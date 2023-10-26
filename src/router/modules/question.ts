@@ -11,7 +11,7 @@ export default {
       component: () => import("@/views/question/index.vue"),
       meta: {
         title: "调查问题信息管理",
-        roles: ["0"]
+        roles: ["0", "1", "2"]
       }
     },
     {

@@ -41,3 +41,15 @@ export const refreshTokenApi = (data?: object) => {
     { data }
   );
 };
+
+//修改密码
+export const passwordUpdate = (data?: object) => {
+  return http.request(
+    "put",
+    "/system/admin/updatePassword",
+    { data },
+    {
+      withCredentials: true
+    }
+  );
+};

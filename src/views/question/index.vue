@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useAccount } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -11,6 +11,8 @@ import Refresh from "@iconify-icons/ep/refresh";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 import { useDetail } from "@/views/question/tabs/hooks";
 import { useDetail1 } from "@/views/question/statistic/hooks";
+import { storageSession } from "@pureadmin/utils";
+import { DataInfo, sessionKey } from "@/utils/auth";
 
 defineOptions({
   name: "Student"
@@ -38,6 +40,11 @@ const {
 } = useAccount(tableRef);
 const { toDetail, router } = useDetail();
 const { toDetail1, router1 } = useDetail1();
+const role = ref("");
+onMounted(async () => {
+  const userInfo = await storageSession().getItem<DataInfo<number>>(sessionKey);
+  role.value = userInfo.roles[0];
+});
 </script>
 
 <template>
@@ -93,6 +100,7 @@ const { toDetail1, router1 } = useDetail1();
     <PureTableBar title="调查问题管理" :columns="columns" @refresh="onSearch">
       <template #buttons>
         <el-button
+          v-if="role === '0'"
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="router.push({ name: 'NewSurvey' })"
@@ -119,7 +127,9 @@ const { toDetail1, router1 } = useDetail1();
           </div>
           <el-popconfirm title="是否确认删除?" @confirm="onbatchDel">
             <template #reference>
-              <el-button type="danger" text class="mr-1"> 批量删除</el-button>
+              <el-button v-if="role === '0'" class="mr-1" text type="danger">
+                批量删除
+              </el-button>
             </template>
           </el-popconfirm>
         </div>
@@ -145,6 +155,7 @@ const { toDetail1, router1 } = useDetail1();
         >
           <template #operation="{ row }">
             <el-button
+              v-if="role === '0'"
               class="reset-margin"
               link
               type="primary"
@@ -170,6 +181,7 @@ const { toDetail1, router1 } = useDetail1();
               查看统计
             </el-button>
             <el-button
+              v-if="role === '0'"
               class="reset-margin"
               link
               type="primary"
@@ -185,6 +197,7 @@ const { toDetail1, router1 } = useDetail1();
             >
               <template #reference>
                 <el-button
+                  v-if="role === '0'"
                   class="reset-margin"
                   link
                   type="primary"

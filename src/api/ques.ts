@@ -1,5 +1,4 @@
 import { http } from "@/utils/http";
-import { FindResult } from "@/api/types";
 
 type Ques = {
   id: string;

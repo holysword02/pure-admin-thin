@@ -2,28 +2,28 @@
 import { getConfig } from "@/config";
 import NProgress from "@/utils/progress";
 import { transformI18n } from "@/plugins/i18n";
-import { sessionKey, type DataInfo, TokenKey, removeToken } from "@/utils/auth";
+import { type DataInfo, removeToken, sessionKey, TokenKey } from "@/utils/auth";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import {
-  Router,
   createRouter,
-  RouteRecordRaw,
-  RouteComponent
+  RouteComponent,
+  Router,
+  RouteRecordRaw
 } from "vue-router";
 import {
   ascending,
-  getTopMenu,
-  initRouter,
-  isOneOfArray,
-  getHistoryMode,
   findRouteByPath,
-  handleAliveRoute,
+  formatFlatteningRoutes,
   formatTwoStageRoutes,
-  formatFlatteningRoutes
+  getHistoryMode,
+  getTopMenu,
+  handleAliveRoute,
+  initRouter,
+  isOneOfArray
 } from "./utils";
 import { buildHierarchyTree } from "@/utils/tree";
-import { isUrl, openLink, storageSession, isAllEmpty } from "@pureadmin/utils";
+import { isAllEmpty, isUrl, openLink, storageSession } from "@pureadmin/utils";
 
 import remainingRouter from "./modules/remaining";
 import Cookies from "js-cookie";
@@ -143,6 +143,10 @@ router.beforeEach((to: ToRouteType, _from, next) => {
         if (!r) {
           removeToken();
           router.push("/login");
+        } else {
+          if (userInfo.roles[0] === "3") {
+            router.push("/password/index");
+          }
         }
       })
       .catch(e => {

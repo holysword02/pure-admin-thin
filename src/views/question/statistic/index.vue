@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { statisticFind } from "@/api/statistic";
 import { useDetail1 } from "./hooks";
+
 const { initToDetail, getParameter } = useDetail1();
 initToDetail("query");
 const number = ref(0);

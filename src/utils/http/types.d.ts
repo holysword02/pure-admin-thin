@@ -1,9 +1,4 @@
-import Axios, {
-  Method,
-  AxiosError,
-  AxiosResponse,
-  AxiosRequestConfig
-} from "axios";
+import {AxiosError, AxiosRequestConfig, AxiosResponse, Method} from "axios";
 
 export type resultType = {
   accessToken?: string;

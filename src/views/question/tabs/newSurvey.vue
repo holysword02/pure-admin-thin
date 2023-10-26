@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { surveyInsert } from "@/api/survey";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { subjectFindAll } from "@/api/subject";

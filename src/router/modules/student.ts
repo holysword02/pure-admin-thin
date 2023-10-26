@@ -11,7 +11,7 @@ export default {
       component: () => import("@/views/student/index.vue"),
       meta: {
         title: "学生信息管理",
-        roles: ["0", "1"]
+        roles: ["0"]
       }
     }
   ]

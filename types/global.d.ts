@@ -1,12 +1,5 @@
-import type {
-  VNode,
-  FunctionalComponent,
-  PropType as VuePropType,
-  ComponentPublicInstance
-} from "vue";
-import type { ECharts } from "echarts";
-import type { IconifyIcon } from "@iconify/vue";
-import type { TableColumns } from "@pureadmin/table";
+import type {ECharts} from "echarts";
+import type {TableColumns} from "@pureadmin/table";
 
 /**
  * 全局类型声明，无需引入直接在 `.vue` 、`.ts` 、`.tsx` 文件使用即可获得类型提示

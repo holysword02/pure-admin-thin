@@ -1,24 +1,14 @@
 import { message } from "@/utils/message";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h } from "vue";
-import { computed, Ref } from "vue";
+import { computed, onMounted, reactive, ref, Ref } from "vue";
 import { usePublicHooks } from "@/views/account/utils/hooks";
 import { ElMessageBox } from "element-plus";
 import { useDetail } from "@/views/question/tabs/hooks";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
-import {
-  questionDelete,
-  questionFind,
-  questionInsert,
-  questionList,
-  questionUpdate
-} from "@/api/question";
+import { questionDelete, questionFind, questionList } from "@/api/question";
 import dayjs from "dayjs";
 import { surveyUpdate } from "@/api/survey";
-import {subjectFind, subjectFindAll} from "@/api/subject";
-import { classesFindAll } from "@/api/classes";
-import { dictFindAll } from "@/api/dict";
-import { teacherFindAll } from "@/api/teacher";
+import { subjectFind, subjectFindAll } from "@/api/subject";
 
 export function useAccount(tableRef: Ref) {
   const options = ref();
@@ -67,25 +57,6 @@ export function useAccount(tableRef: Ref) {
       label: "班级",
       prop: "className",
       minWidth: 130
-    },
-    {
-      label: "状态",
-      prop: "isActive",
-      minWidth: 90,
-      cellRenderer: scope => (
-        <el-switch
-          size={scope.props.size === "small" ? "small" : "default"}
-          loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.isActive}
-          active-value={1}
-          inactive-value={0}
-          active-text="已启用"
-          inactive-text="已停用"
-          inline-prompt
-          style={switchStyle.value}
-          onChange={() => onChange(scope as any)}
-        />
-      )
     },
     {
       label: "创建时间",

@@ -1,10 +1,10 @@
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted } from "vue";
-import { computed, Ref } from "vue";
+import { computed, onMounted, reactive, ref, Ref } from "vue";
 import { usePublicHooks } from "@/views/account/utils/hooks";
 import { questionList } from "@/api/question";
 import dayjs from "dayjs";
 import { voteFind } from "@/api/vote";
+
 const { tagStyle } = usePublicHooks();
 
 export function useAccount(tableRef: Ref) {

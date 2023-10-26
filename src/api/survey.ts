@@ -1,5 +1,4 @@
 import { http } from "@/utils/http";
-import { FindResult } from "@/api/types";
 
 // 新增问卷
 export const surveyInsert = (data?: object) => {

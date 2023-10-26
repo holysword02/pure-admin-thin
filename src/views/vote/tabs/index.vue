@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {
+  appendFieldByUniqueId,
   deleteChildren,
-  getNodeByUniqueId,
-  appendFieldByUniqueId
+  getNodeByUniqueId
 } from "@/utils/tree";
 import { useDetail } from "./hooks";
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 import { clone } from "@pureadmin/utils";
 import { transformI18n } from "@/plugins/i18n";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
