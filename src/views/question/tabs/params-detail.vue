@@ -27,8 +27,8 @@ const options = {
   submitBtn: true,
   resetBtn: true
 };
-function test2() {
-  quesOne(getParameter.id).then(res => {
+async function test2() {
+  await quesOne(getParameter.id).then(res => {
     designerRef.id = res.id;
     designerRef.value = res.value;
     designerData.value.setOption(options);
@@ -44,9 +44,6 @@ function test2() {
     designerData.value.removeMenuItem("switch");
   });
 }
-onMounted(() => {
-  test2();
-});
 
 const sendForm = () => {
   ElMessageBox.confirm("是否修改数据？", "Warning", {
@@ -108,6 +105,9 @@ const setDesignerValue = () => {
   // 关闭输入框对话框
   inputDialogVisible.value = false;
 };
+onMounted(async () => {
+  await test2();
+});
 </script>
 
 <template>

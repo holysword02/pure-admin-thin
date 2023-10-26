@@ -34,7 +34,7 @@ export function useDetail1() {
           // title: `No.${index} - 详情信息`,
           // 最大打开标签数
           dynamicLevel: 3,
-          roles: ["0"]
+          roles: ["0", "1", "2"]
         }
       });
       // 路由跳转

@@ -44,7 +44,7 @@ export default {
         // 不在menu菜单中显示
         showLink: false,
         activePath: "/statistic/index",
-        roles: ["0"]
+        roles: ["0", "1", "2"]
       }
     }
   ]
