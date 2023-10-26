@@ -58,43 +58,43 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         },
         "/students": {
           // 这里填写后端地址
-          target: "http://localhost:6064",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/students/, "")
         },
         "/questions": {
           // 这里填写后端地址
-          target: "http://localhost:6066",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/questions/, "")
         },
         "/classes": {
           // 这里填写后端地址
-          target: "http://localhost:6064",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/classes/, "")
         },
         "/subjects": {
           // 这里填写后端地址
-          target: "http://localhost:6063",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/subjects/, "")
         },
         "/dicts": {
           // 这里填写后端地址
-          target: "http://localhost:6065",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/dicts/, "")
         },
         "/quess": {
           // 这里填写后端地址
-          target: "http://localhost:6066",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/quess/, "")
         },
         "/surveys": {
           // 这里填写后端地址
-          target: "http://localhost:6066",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/surveys/, "")
         },
@@ -106,7 +106,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         },
         "/statistics": {
           // 这里填写后端地址
-          target: "http://localhost:6068",
+          target: "http://localhost:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/statistics/, "")
         }
