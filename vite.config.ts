@@ -46,67 +46,67 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       proxy: {
         "/system": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/system/, "")
         },
         "/teachers": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/teachers/, "")
         },
         "/students": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/students/, "")
         },
         "/questions": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/questions/, "")
         },
         "/classes": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/classes/, "")
         },
         "/subjects": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/subjects/, "")
         },
         "/dicts": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/dicts/, "")
         },
         "/quess": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/quess/, "")
         },
         "/surveys": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/surveys/, "")
         },
         "/votes": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/votes/, "")
         },
         "/statistics": {
           // 这里填写后端地址
-          target: "http://localhost:5050",
+          target: "http://192.168.136.150:5050",
           changeOrigin: true,
           rewrite: path => path.replace(/^\/statistics/, "")
         }

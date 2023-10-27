@@ -34,5 +34,5 @@ export const questionUpdate = (data?: object) => {
 };
 
 export const questionList = () => {
-  return http.request("get", "http://localhost:6065/dict/list/subject");
+  return http.request("get", "/dicts/dict/list/subject");
 };
