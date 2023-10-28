@@ -58,7 +58,7 @@ const { toDetail } = useDetail();
               :size="size"
               :icon="useRenderIcon(EditPen)"
               @click="
-                toDetail({ id: row.id, statisticId: row.surveyId }, 'query')
+                toDetail({ id: row.id, surveyId: row.surveyId }, 'query')
               "
             >
               进行投票
